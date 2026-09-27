@@ -339,7 +339,7 @@ export default function HiringForm({ initialRequirement, initialIndustry }) {
                     {isSubmitting ? (
                       <>
                         <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        <span>Submitting to Web3Forms...</span>
+                        <span>Submitting</span>
                       </>
                     ) : (
                       <>
