@@ -1,0 +1,69 @@
+import React, { useState } from 'react';
+import { Outlet, Link } from 'react-router-dom';
+import Navbar from './Navbar';
+import Footer from './Footer';
+import ScrollToTop from './ScrollToTop';
+import QuickHireModal from './QuickHireModal';
+import Toaster from './Toaster';
+import { Phone, ArrowRight } from 'lucide-react';
+import { contactData } from '../data/contact';
+
+export default function Layout() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalRequirement, setModalRequirement] = useState('Store Staff');
+
+  const handleOpenModal = (requirement = 'Store Staff') => {
+    setModalRequirement(requirement);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  return (
+    <div className="min-h-screen bg-white text-charcoal flex flex-col relative selection:bg-brand-red-light selection:text-brand-red">
+      <ScrollToTop />
+      
+      {/* Reliable Global Toaster */}
+      <Toaster />
+
+      {/* Shared Navbar */}
+      <Navbar onOpenHiringModal={() => handleOpenModal('Store Staff')} />
+
+      {/* Main Content from Route */}
+      <main className="flex-grow">
+        <Outlet context={{ onOpenHiringModal: handleOpenModal }} />
+      </main>
+
+      {/* Shared Footer on Every Page */}
+      <Footer onOpenHiringModal={() => handleOpenModal('Staffing Support')} />
+
+      {/* Quick Hire Modal */}
+      <QuickHireModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        defaultRequirement={modalRequirement}
+      />
+
+      {/* Mobile Sticky Bottom CTA Bar */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-4 py-2.5 shadow-2xl flex items-center justify-between gap-3">
+        <a
+          href={`tel:${contactData.phone}`}
+          className="p-2.5 rounded-lg border border-slate-200 text-charcoal hover:text-brand-red hover:bg-slate-50 flex items-center justify-center shrink-0"
+          aria-label="Call PINCOF"
+        >
+          <Phone className="w-4 h-4 text-brand-red" />
+        </a>
+
+        <Link
+          to="/request-hiring"
+          className="flex-1 py-2.5 px-4 rounded-lg bg-brand-red hover:bg-brand-red-dark text-white font-semibold text-xs tracking-wide shadow-md flex items-center justify-center gap-1.5 transition-all text-center"
+        >
+          <span>Request Hiring Support</span>
+          <ArrowRight className="w-3.5 h-3.5" />
+        </Link>
+      </div>
+    </div>
+  );
+}
