@@ -5,6 +5,9 @@ import Footer from './Footer';
 import ScrollToTop from './ScrollToTop';
 import QuickHireModal from './QuickHireModal';
 import Toaster from './Toaster';
+import Preloader from './Preloader';
+import TopLoadingBar from './TopLoadingBar';
+import PageTransition from './PageTransition';
 import { Phone, ArrowRight } from 'lucide-react';
 import { contactData } from '../data/contact';
 
@@ -23,6 +26,12 @@ export default function Layout() {
 
   return (
     <div className="min-h-screen bg-white text-charcoal flex flex-col relative selection:bg-brand-red-light selection:text-brand-red">
+      {/* Initial Animated Loading Page */}
+      <Preloader />
+
+      {/* Top indicator bar for page transitions */}
+      <TopLoadingBar />
+
       <ScrollToTop />
       
       {/* Reliable Global Toaster */}
@@ -31,9 +40,11 @@ export default function Layout() {
       {/* Shared Navbar */}
       <Navbar onOpenHiringModal={() => handleOpenModal('Store Staff')} />
 
-      {/* Main Content from Route */}
-      <main className="flex-grow">
-        <Outlet context={{ onOpenHiringModal: handleOpenModal }} />
+      {/* Animated Main Content from Route */}
+      <main className="flex-grow flex flex-col">
+        <PageTransition>
+          <Outlet context={{ onOpenHiringModal: handleOpenModal }} />
+        </PageTransition>
       </main>
 
       {/* Shared Footer on Every Page */}
