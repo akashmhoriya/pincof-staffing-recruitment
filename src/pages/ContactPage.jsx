@@ -25,6 +25,14 @@ export default function ContactPage() {
     const formData = new FormData(formEl);
 
     formData.append("access_key", "c87985db-7986-4938-9454-cc77dca32382");
+    
+    const senderName = formData.get("name") || "Visitor";
+    const senderEmail = formData.get("email");
+    const subjectTopic = formData.get("subject") || "Staffing Inquiry";
+    formData.set("subject", `[PINCOF Contact] ${subjectTopic} - from ${senderName}`);
+    if (senderEmail) {
+      formData.set("replyto", senderEmail);
+    }
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -175,6 +183,12 @@ export default function ContactPage() {
                 type="hidden"
                 name="from_name"
                 value="PINCOF Contact Page"
+              />
+              <input
+                type="checkbox"
+                name="botcheck"
+                className="hidden"
+                style={{ display: 'none' }}
               />
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

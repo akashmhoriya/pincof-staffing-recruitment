@@ -22,6 +22,14 @@ export default function HiringForm({ initialRequirement, initialIndustry }) {
     const formData = new FormData(formEl);
 
     formData.append("access_key", "c87985db-7986-4938-9454-cc77dca32382");
+    
+    const senderName = formData.get("name") || "Employer";
+    const senderEmail = formData.get("email");
+    const roleReq = formData.get("requirement") || "Talent Requirement";
+    formData.set("subject", `[PINCOF Hiring Request] ${roleReq} - from ${senderName}`);
+    if (senderEmail) {
+      formData.set("replyto", senderEmail);
+    }
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -153,6 +161,12 @@ export default function HiringForm({ initialRequirement, initialIndustry }) {
                   type="hidden"
                   name="from_name"
                   value="PINCOF Hiring Portal"
+                />
+                <input
+                  type="checkbox"
+                  name="botcheck"
+                  className="hidden"
+                  style={{ display: 'none' }}
                 />
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

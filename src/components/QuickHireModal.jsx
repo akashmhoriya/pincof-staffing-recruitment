@@ -42,6 +42,14 @@ export default function QuickHireModal({ isOpen, onClose, defaultRequirement = '
     const formData = new FormData(formEl);
 
     formData.append("access_key", "c87985db-7986-4938-9454-cc77dca32382");
+    
+    const senderName = formData.get("name") || "Employer";
+    const senderEmail = formData.get("email");
+    const roleReq = formData.get("requirement") || defaultRequirement || "Quick Hire Request";
+    formData.set("subject", `[PINCOF Quick Hire] ${roleReq} - from ${senderName}`);
+    if (senderEmail) {
+      formData.set("replyto", senderEmail);
+    }
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -117,6 +125,12 @@ export default function QuickHireModal({ isOpen, onClose, defaultRequirement = '
               type="hidden"
               name="from_name"
               value="PINCOF Quick Hire Modal"
+            />
+            <input
+              type="checkbox"
+              name="botcheck"
+              className="hidden"
+              style={{ display: 'none' }}
             />
 
             <div>
