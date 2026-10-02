@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useLayoutEffect, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
 import gsap from 'gsap';
@@ -10,10 +10,19 @@ export default function SmoothScroll({ children }) {
   const lenisRef = useRef(null);
   const location = useLocation();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    // Immediately disable browser automatic scroll restoration on load
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    window.scrollTo(0, 0);
+
     // Check if user prefers reduced motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
+      window.scrollTo(0, 0);
       return;
     }
 
@@ -35,6 +44,11 @@ export default function SmoothScroll({ children }) {
     });
 
     lenisRef.current = lenis;
+    window.__lenis = lenis;
+
+    // Immediately reset to top on mount
+    lenis.scrollTo(0, { immediate: true });
+    window.scrollTo(0, 0);
 
     // Connect Lenis to GSAP ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update);
@@ -46,10 +60,23 @@ export default function SmoothScroll({ children }) {
     gsap.ticker.add(updateTicker);
     gsap.ticker.lagSmoothing(0);
 
+    const handleReset = () => {
+      window.scrollTo(0, 0);
+      if (lenisRef.current) {
+        lenisRef.current.scrollTo(0, { immediate: true });
+      }
+    };
+
+    window.addEventListener('pageshow', handleReset);
+    window.addEventListener('beforeunload', handleReset);
+
     return () => {
+      window.removeEventListener('pageshow', handleReset);
+      window.removeEventListener('beforeunload', handleReset);
       gsap.ticker.remove(updateTicker);
       lenis.destroy();
       lenisRef.current = null;
+      window.__lenis = null;
     };
   }, []);
 
@@ -57,9 +84,8 @@ export default function SmoothScroll({ children }) {
   useEffect(() => {
     if (lenisRef.current) {
       lenisRef.current.scrollTo(0, { immediate: true });
-    } else {
-      window.scrollTo(0, 0);
     }
+    window.scrollTo(0, 0);
   }, [location.pathname]);
 
   return <>{children}</>;

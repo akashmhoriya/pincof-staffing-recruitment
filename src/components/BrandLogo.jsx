@@ -6,7 +6,7 @@ import allenSollyLogo from '../assets/brands/allen-solly.png';
 import natufLogo from '../assets/brands/natuf.svg';
 import otherEnterprisesLogo from '../assets/brands/other-enterprises.svg';
 
-export const brandLogoMap = {
+const brandLogoMap = {
   'starbucks': {
     src: starbucksLogo,
     alt: 'Starbucks Official Logo',

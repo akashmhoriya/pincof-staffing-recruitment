@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useLayoutEffect, useState, useRef } from 'react';
 import gsap from 'gsap';
 import logoImg from '../assets/pincof-logo.png';
 
@@ -20,15 +20,31 @@ export default function Preloader({ onLoaded }) {
   const lineRef = useRef(null);
   const phraseRef = useRef(null);
 
-  useEffect(() => {
-    // Lock scroll during preloader
+  useLayoutEffect(() => {
+    // Immediately remove HTML static barrier
+    const initialCover = document.getElementById('initial-preloader-cover');
+    if (initialCover) {
+      initialCover.remove();
+    }
+
+    // Lock scroll synchronously before browser paints
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    window.scrollTo(0, 0);
+    if (window.__lenis) {
+      window.__lenis.scrollTo(0, { immediate: true });
+    }
 
     const ctx = gsap.context(() => {
       const masterTl = gsap.timeline({
         onComplete: () => {
           document.body.style.overflow = originalOverflow;
+          window.scrollTo(0, 0);
+          if (window.__lenis) {
+            window.__lenis.scrollTo(0, { immediate: true });
+          }
           setIsDone(true);
           if (onLoaded) onLoaded();
         },
@@ -124,6 +140,10 @@ export default function Preloader({ onLoaded }) {
     // Fallback safety timeout
     const safetyTimer = setTimeout(() => {
       document.body.style.overflow = originalOverflow;
+      window.scrollTo(0, 0);
+      if (window.__lenis) {
+        window.__lenis.scrollTo(0, { immediate: true });
+      }
       setIsDone(true);
       if (onLoaded) onLoaded();
     }, 2400);
