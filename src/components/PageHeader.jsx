@@ -8,21 +8,20 @@ export default function PageHeader({ eyebrow, title, description, badgeIcon: Bad
   const textRef = useRef(null);
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
     const ctx = gsap.context(() => {
       gsap.fromTo(
         textRef.current,
         {
           opacity: 0,
-          y: 30,
-          rotationX: 12,
-          transformPerspective: 800,
-          transformStyle: 'preserve-3d',
+          y: 25,
         },
         {
           opacity: 1,
           y: 0,
-          rotationX: 0,
-          duration: 0.75,
+          duration: 0.85,
           ease: 'power3.out',
         }
       );
@@ -34,38 +33,38 @@ export default function PageHeader({ eyebrow, title, description, badgeIcon: Bad
   return (
     <section
       ref={headerRef}
-      className="relative pt-28 pb-12 md:pt-36 md:pb-16 bg-gradient-to-b from-slate-50 via-white to-white border-b border-surface-border/60 text-left overflow-hidden"
+      className="relative pt-32 pb-16 md:pt-40 md:pb-20 bg-[#FAFAFA] border-b border-black/[0.06] text-left overflow-hidden"
     >
-      {/* Subtle 3D ambient radial glow in background */}
-      <div className="absolute top-0 right-10 w-96 h-96 bg-brand-red/5 rounded-full blur-3xl pointer-events-none -z-0" />
-      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-brand-navy/5 rounded-full blur-3xl pointer-events-none -z-0" />
+      {/* Subtle ambient radial glow in background */}
+      <div className="absolute top-0 right-10 w-96 h-96 bg-brand-red/[0.04] rounded-full blur-3xl pointer-events-none -z-0" />
+      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-brand-navy/[0.04] rounded-full blur-3xl pointer-events-none -z-0" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-xs text-charcoal-light mb-6" aria-label="Breadcrumb">
-          <Link to="/" className="hover:text-brand-red flex items-center gap-1 transition-colors">
+        <nav className="flex items-center gap-2 text-xs text-charcoal/50 mb-8" aria-label="Breadcrumb">
+          <Link to="/" className="hover:text-brand-red flex items-center gap-1.5 transition-colors font-medium">
             <Home className="w-3.5 h-3.5" />
             <span>Home</span>
           </Link>
-          <ChevronRight className="w-3 h-3 text-slate-300" />
-          <span className="text-charcoal font-semibold">{title}</span>
+          <ChevronRight className="w-3.5 h-3.5 text-black/20" />
+          <span className="text-charcoal font-bold tracking-wide">{title}</span>
         </nav>
 
-        <div ref={textRef} className="max-w-3xl will-change-transform">
+        <div ref={textRef} className="max-w-4xl will-change-transform space-y-4">
           {eyebrow && (
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-red-light/80 border border-brand-red/15 text-brand-red text-xs font-bold uppercase tracking-wider mb-3.5 shadow-xs">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-black/[0.06] text-brand-red text-[11px] font-bold uppercase tracking-widest shadow-subtle">
               {BadgeIcon && <BadgeIcon className="w-3.5 h-3.5" />}
               <span>{eyebrow}</span>
             </div>
           )}
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-charcoal tracking-tight leading-tight mb-4">
+          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-charcoal tracking-tight leading-[1.08]">
             {title}
           </h1>
 
           {description && (
-            <p className="text-base sm:text-lg text-charcoal-muted leading-relaxed font-normal">
+            <p className="text-base sm:text-lg text-charcoal/70 leading-relaxed font-normal max-w-2xl pt-1">
               {description}
             </p>
           )}

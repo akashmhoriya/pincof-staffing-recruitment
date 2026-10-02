@@ -8,6 +8,8 @@ import Toaster from './Toaster';
 import Preloader from './Preloader';
 import TopLoadingBar from './TopLoadingBar';
 import PageTransition from './PageTransition';
+import SmoothScroll from './SmoothScroll';
+import CustomCursor from './CustomCursor';
 import { Phone, ArrowRight } from 'lucide-react';
 import { contactData } from '../data/contact';
 
@@ -25,30 +27,34 @@ export default function Layout() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-charcoal flex flex-col relative selection:bg-brand-red-light selection:text-brand-red">
-      {/* Initial Animated Loading Page */}
-      <Preloader />
+    <SmoothScroll>
+      <div className="min-h-screen bg-white text-charcoal flex flex-col relative selection:bg-brand-red selection:text-white">
+        {/* Subtle desktop custom cursor */}
+        <CustomCursor />
 
-      {/* Top indicator bar for page transitions */}
-      <TopLoadingBar />
+        {/* Initial Animated Loading Page */}
+        <Preloader />
 
-      <ScrollToTop />
-      
-      {/* Reliable Global Toaster */}
-      <Toaster />
+        {/* Top indicator bar for page transitions */}
+        <TopLoadingBar />
 
-      {/* Shared Navbar */}
-      <Navbar onOpenHiringModal={() => handleOpenModal('Store Staff')} />
+        <ScrollToTop />
+        
+        {/* Reliable Global Toaster */}
+        <Toaster />
 
-      {/* Animated Main Content from Route */}
-      <main className="flex-grow flex flex-col">
-        <PageTransition>
-          <Outlet context={{ onOpenHiringModal: handleOpenModal }} />
-        </PageTransition>
-      </main>
+        {/* Shared Navbar */}
+        <Navbar onOpenHiringModal={() => handleOpenModal('Store Staff')} />
 
-      {/* Shared Footer on Every Page */}
-      <Footer onOpenHiringModal={() => handleOpenModal('Staffing Support')} />
+        {/* Animated Main Content from Route */}
+        <main className="flex-grow flex flex-col">
+          <PageTransition>
+            <Outlet context={{ onOpenHiringModal: handleOpenModal }} />
+          </PageTransition>
+        </main>
+
+        {/* Shared Footer on Every Page */}
+        <Footer onOpenHiringModal={() => handleOpenModal('Staffing Support')} />
 
       {/* Quick Hire Modal */}
       <QuickHireModal
@@ -69,12 +75,13 @@ export default function Layout() {
 
         <Link
           to="/request-hiring"
-          className="flex-1 py-2.5 px-4 rounded-lg bg-brand-red hover:bg-brand-red-dark text-white font-semibold text-xs tracking-wide shadow-md flex items-center justify-center gap-1.5 transition-all text-center"
+          className="flex-1 py-3 px-5 rounded-full bg-brand-red hover:bg-brand-red-dark text-white font-bold text-xs uppercase tracking-wider shadow-md flex items-center justify-center gap-2 transition-all text-center"
         >
           <span>Request Hiring Support</span>
           <ArrowRight className="w-3.5 h-3.5" />
         </Link>
       </div>
     </div>
+  </SmoothScroll>
   );
 }

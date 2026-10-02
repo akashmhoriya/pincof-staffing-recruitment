@@ -35,24 +35,15 @@ export default function CustomSelect({
     };
   });
 
-  const getInitialValue = () => {
-    if (controlledValue !== undefined) return String(controlledValue);
+  const isControlled = controlledValue !== undefined;
+  const [internalValue, setInternalValue] = useState(() => {
     if (defaultValue !== undefined && defaultValue !== '') return String(defaultValue);
     return normalizedOptions[0]?.value || '';
-  };
+  });
 
-  const [selectedValue, setSelectedValue] = useState(getInitialValue);
+  const selectedValue = isControlled ? String(controlledValue) : internalValue;
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
-
-  // Sync when controlled value or defaultValue changes
-  useEffect(() => {
-    if (controlledValue !== undefined) {
-      setSelectedValue(String(controlledValue));
-    } else if (defaultValue !== undefined && defaultValue !== '') {
-      setSelectedValue(String(defaultValue));
-    }
-  }, [controlledValue, defaultValue]);
 
   // Support native form.reset()
   useEffect(() => {
@@ -63,13 +54,15 @@ export default function CustomSelect({
       const resetVal = defaultValue !== undefined && defaultValue !== ''
         ? String(defaultValue)
         : (normalizedOptions[0]?.value || '');
-      setSelectedValue(resetVal);
+      if (!isControlled) {
+        setInternalValue(resetVal);
+      }
       if (onChange) onChange(resetVal);
     };
 
     form.addEventListener('reset', handleFormReset);
     return () => form.removeEventListener('reset', handleFormReset);
-  }, [defaultValue, normalizedOptions, onChange]);
+  }, [defaultValue, normalizedOptions, onChange, isControlled]);
 
   // Close on outside click or Escape
   useEffect(() => {
@@ -102,7 +95,9 @@ export default function CustomSelect({
   };
 
   const handleSelect = (val) => {
-    setSelectedValue(val);
+    if (!isControlled) {
+      setInternalValue(val);
+    }
     setIsOpen(false);
     if (onChange) onChange(val);
   };
@@ -144,7 +139,15 @@ export default function CustomSelect({
 
       {/* Dropdown Popover */}
       {isOpen && (
-        <div className="absolute top-full left-0 right-0 mt-1.5 bg-white rounded-xl border border-slate-200 shadow-xl z-50 overflow-hidden py-1.5 max-h-64 overflow-y-auto">
+        <div
+          data-lenis-prevent="true"
+          data-lenis-prevent-wheel="true"
+          data-lenis-prevent-touch="true"
+          onWheel={(e) => e.stopPropagation()}
+          onTouchMove={(e) => e.stopPropagation()}
+          className="absolute top-full left-0 right-0 mt-1.5 bg-white rounded-xl border border-slate-200 shadow-2xl z-50 py-1.5 max-h-60 overflow-y-auto overflow-x-hidden overscroll-contain select-none no-scrollbar"
+          style={{ overscrollBehavior: 'contain', WebkitOverflowScrolling: 'touch' }}
+        >
           <ul role="listbox" className="p-1 space-y-0.5">
             {normalizedOptions.map((opt) => {
               const isSelected = opt.value === selectedValue;

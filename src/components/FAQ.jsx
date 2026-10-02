@@ -16,21 +16,24 @@ export default function FAQ() {
   };
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
     const ctx = gsap.context(() => {
       const items = faqListRef.current?.children;
       if (items && items.length > 0) {
         gsap.fromTo(
           items,
-          { opacity: 0, y: 15 },
+          { opacity: 0, y: 20 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.5,
-            stagger: 0.07,
-            ease: 'power2.out',
+            duration: 0.6,
+            stagger: 0.06,
+            ease: 'power3.out',
             scrollTrigger: {
               trigger: faqListRef.current,
-              start: 'top 80%',
+              start: 'top 85%',
             },
           }
         );
@@ -44,48 +47,52 @@ export default function FAQ() {
     <section
       id="faq"
       ref={sectionRef}
-      className="py-20 md:py-28 bg-surface-muted border-b border-surface-border/60 relative"
+      className="py-16 md:py-24 bg-transparent relative text-left"
     >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-red-light/80 border border-brand-red/15 text-brand-red text-xs font-bold uppercase tracking-wider mb-3.5">
+        <div className="text-center mb-14 space-y-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-black/[0.06] text-brand-red text-[11px] font-bold uppercase tracking-widest shadow-subtle">
             <HelpCircle className="w-3.5 h-3.5" />
             <span>{faqData.sectionEyebrow}</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-charcoal tracking-tight leading-tight mb-4">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-charcoal tracking-tight leading-[1.12]">
             {faqData.sectionTitle}
           </h2>
 
-          <p className="text-base text-charcoal-muted leading-relaxed font-normal max-w-2xl mx-auto">
+          <p className="text-base text-charcoal/70 leading-relaxed font-normal max-w-2xl mx-auto pt-1">
             {faqData.sectionDescription}
           </p>
         </div>
 
         {/* FAQ Accordion List */}
-        <div ref={faqListRef} className="space-y-3.5">
+        <div ref={faqListRef} className="space-y-4">
           {faqData.faqs.map((faq, index) => {
             const isOpen = openIndex === index;
 
             return (
               <div
                 key={faq.id}
-                className="bg-white rounded-xl border border-surface-border overflow-hidden transition-all duration-200 hover:border-slate-300 text-left shadow-subtle"
+                className={`bg-white rounded-2xl border transition-all duration-300 text-left overflow-hidden ${
+                  isOpen
+                    ? 'border-brand-red/30 shadow-premium'
+                    : 'border-black/[0.07] hover:border-black/15 shadow-subtle'
+                }`}
               >
                 <button
                   type="button"
                   onClick={() => toggleIndex(index)}
-                  className="w-full px-6 py-5 flex items-center justify-between gap-4 text-left focus:outline-none"
+                  className="w-full px-6 sm:px-8 py-5 sm:py-6 flex items-center justify-between gap-4 text-left focus:outline-none cursor-pointer"
                   aria-expanded={isOpen}
                 >
-                  <span className="text-base sm:text-lg font-bold text-charcoal">
+                  <span className="font-display text-base sm:text-lg font-bold text-charcoal pr-2">
                     {faq.question}
                   </span>
                   <div
-                    className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-transform duration-300 ${
-                      isOpen ? 'bg-brand-red text-white rotate-180' : 'bg-slate-100 text-charcoal'
+                    className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${
+                      isOpen ? 'bg-brand-red text-white rotate-180 shadow-xs' : 'bg-slate-100 text-charcoal'
                     }`}
                   >
                     <ChevronDown className="w-4 h-4" />
@@ -93,7 +100,7 @@ export default function FAQ() {
                 </button>
 
                 {isOpen && (
-                  <div className="px-6 pb-6 pt-1 text-sm sm:text-base text-charcoal-muted leading-relaxed border-t border-slate-100 animate-fadeIn">
+                  <div className="px-6 sm:px-8 pb-6 pt-1 text-sm sm:text-base text-charcoal/70 leading-relaxed border-t border-black/[0.04] font-normal animate-fadeIn">
                     {faq.answer}
                   </div>
                 )}

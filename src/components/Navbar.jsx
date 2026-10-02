@@ -1,21 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Menu, X, ArrowRight, ChevronDown, Award, HelpCircle, ShieldCheck } from 'lucide-react';
-import logoImg from '../assets/pincof-logo.png';
-import { contactData } from '../data/contact';
+import logoImg from '../assets/pincof-logo-transparent.png';
+import MagneticButton from './MagneticButton';
 import gsap from 'gsap';
 
-export default function Navbar({ onOpenHiringModal }) {
+export default function Navbar({ onOpenHiringModal: _onOpenHiringModal }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [moreDropdownOpen, setMoreDropdownOpen] = useState(false);
   const navRef = useRef(null);
   const dropdownRef = useRef(null);
+  const mobileDrawerRef = useRef(null);
   const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 15);
+      setIsScrolled(window.scrollY > 20);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -26,18 +27,20 @@ export default function Navbar({ onOpenHiringModal }) {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         navRef.current,
-        { y: -20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out' }
+        { y: -30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }
       );
     });
     return () => ctx.revert();
   }, []);
 
   // Close menus on page navigation
-  useEffect(() => {
+  const [prevPath, setPrevPath] = useState(location.pathname);
+  if (prevPath !== location.pathname) {
+    setPrevPath(location.pathname);
     setMobileMenuOpen(false);
     setMoreDropdownOpen(false);
-  }, [location.pathname]);
+  }
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -49,6 +52,17 @@ export default function Navbar({ onOpenHiringModal }) {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  // Animate mobile drawer when opened
+  useEffect(() => {
+    if (mobileMenuOpen && mobileDrawerRef.current) {
+      gsap.fromTo(
+        mobileDrawerRef.current.querySelectorAll('.mobile-nav-item'),
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 0.4, stagger: 0.05, ease: 'power2.out' }
+      );
+    }
+  }, [mobileMenuOpen]);
 
   // Primary visible links (spacious, focused)
   const primaryLinks = [
@@ -88,48 +102,51 @@ export default function Navbar({ onOpenHiringModal }) {
     <>
       <header
         ref={navRef}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-400 ${
           isScrolled
-            ? 'bg-white/95 backdrop-blur-md border-b border-slate-200/70 shadow-sm py-3'
-            : 'bg-white border-b border-slate-100 py-3.5 sm:py-4'
+            ? 'bg-white/85 backdrop-blur-xl border-b border-black/[0.06] shadow-subtle py-3 sm:py-3.5'
+            : 'bg-white/60 backdrop-blur-md border-b border-black/[0.03] py-4 sm:py-5'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-12 sm:h-14">
             
-            {/* Clean Logo - No Taglines or Clutter */}
+            {/* Clean Logo - High Visibility */}
             <Link
               to="/"
               className="flex items-center gap-3 group focus:outline-none"
               aria-label="PINCOF Home"
+              data-cursor-label="PINCOF"
             >
               <img
                 src={logoImg}
                 alt="PINCOF"
-                className="h-10 sm:h-12 w-auto object-contain transition-transform group-hover:scale-[1.02]"
+                className="h-9 sm:h-11 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03]"
               />
             </Link>
 
-            {/* Desktop Navigation Links - Minimalist & Spacious */}
+            {/* Desktop Navigation Links - Minimalist, Spacious & Editorial */}
             <nav className="hidden lg:flex items-center space-x-7 xl:space-x-9">
               {primaryLinks.map((link) => (
                 <NavLink
                   key={link.path}
                   to={link.path}
                   className={({ isActive }) =>
-                    `text-[14px] tracking-wide font-medium transition-colors relative py-1 focus:outline-none ${
+                    `text-[13px] tracking-wide font-medium transition-all duration-200 relative py-1 focus:outline-none group ${
                       isActive
                         ? 'text-brand-red font-semibold'
-                        : 'text-slate-600 hover:text-charcoal'
+                        : 'text-charcoal/70 hover:text-charcoal'
                     }`
                   }
                 >
                   {({ isActive }) => (
                     <>
                       <span>{link.label}</span>
-                      {isActive && (
-                        <span className="absolute bottom-[-6px] left-0 right-0 h-[2px] bg-brand-red rounded-full animate-fadeIn" />
-                      )}
+                      <span
+                        className={`absolute -bottom-1 left-0 h-[2px] bg-brand-red rounded-full transition-all duration-300 ${
+                          isActive ? 'w-full' : 'w-0 group-hover:w-full bg-charcoal/30'
+                        }`}
+                      />
                     </>
                   )}
                 </NavLink>
@@ -140,24 +157,29 @@ export default function Navbar({ onOpenHiringModal }) {
                 <button
                   type="button"
                   onClick={() => setMoreDropdownOpen(!moreDropdownOpen)}
-                  className={`flex items-center gap-1 text-[14px] tracking-wide font-medium transition-colors py-1 focus:outline-none ${
+                  className={`flex items-center gap-1.5 text-[13px] tracking-wide font-medium transition-colors py-1 focus:outline-none cursor-pointer ${
                     isMoreActive || moreDropdownOpen
                       ? 'text-brand-red font-semibold'
-                      : 'text-slate-600 hover:text-charcoal'
+                      : 'text-charcoal/70 hover:text-charcoal'
                   }`}
                   aria-expanded={moreDropdownOpen}
                 >
                   <span>More</span>
                   <ChevronDown
                     className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                      moreDropdownOpen ? 'rotate-180 text-brand-red' : 'text-slate-400'
+                      moreDropdownOpen ? 'rotate-180 text-brand-red' : 'text-charcoal/40'
                     }`}
                   />
                 </button>
 
                 {/* Dropdown Menu Panel */}
                 {moreDropdownOpen && (
-                  <div className="absolute top-full right-0 mt-3 w-64 bg-white rounded-xl border border-slate-200 shadow-xl py-2 z-50 animate-fadeIn text-left">
+                  <div className="absolute top-full right-0 mt-3 w-72 bg-white/95 backdrop-blur-xl rounded-2xl border border-black/[0.08] shadow-2xl py-2 z-50 animate-fadeIn text-left overflow-hidden">
+                    <div className="px-4 py-2 border-b border-black/[0.04]">
+                      <span className="text-[10px] font-bold tracking-widest text-charcoal/40 uppercase">
+                        Explore PINCOF
+                      </span>
+                    </div>
                     {secondaryLinks.map((item) => {
                       const Icon = item.icon;
                       const isActive = location.pathname === item.path;
@@ -166,18 +188,18 @@ export default function Navbar({ onOpenHiringModal }) {
                           key={item.path}
                           to={item.path}
                           onClick={() => setMoreDropdownOpen(false)}
-                          className={`flex items-start gap-3 px-4 py-2.5 hover:bg-slate-50 transition-colors ${
-                            isActive ? 'bg-slate-50 text-brand-red font-semibold' : 'text-charcoal'
+                          className={`flex items-start gap-3.5 px-4 py-3 hover:bg-slate-50 transition-colors ${
+                            isActive ? 'bg-brand-red-light/60 text-brand-red font-semibold' : 'text-charcoal'
                           }`}
                         >
-                          <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center shrink-0 mt-0.5 text-brand-red">
+                          <div className="w-8 h-8 rounded-xl bg-slate-100 flex items-center justify-center shrink-0 text-brand-red">
                             <Icon className="w-4 h-4" />
                           </div>
                           <div>
                             <span className="block text-xs font-bold leading-snug">
                               {item.label}
                             </span>
-                            <span className="block text-[11px] text-charcoal-light font-normal">
+                            <span className="block text-[11px] text-charcoal-muted font-normal mt-0.5">
                               {item.desc}
                             </span>
                           </div>
@@ -189,22 +211,25 @@ export default function Navbar({ onOpenHiringModal }) {
               </div>
             </nav>
 
-            {/* Desktop Right CTA Button */}
+            {/* Desktop Right CTA Button - Magnetic High-End Feel */}
             <div className="hidden lg:flex items-center gap-3">
-              <Link
-                to="/request-hiring"
-                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-xs xl:text-sm font-semibold text-white bg-brand-red hover:bg-brand-red-dark shadow-sm hover:shadow transition-all duration-200 group active:scale-[0.98]"
-              >
-                <span>Request Hiring Support</span>
-                <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
-              </Link>
+              <MagneticButton strength={0.25}>
+                <Link
+                  to="/request-hiring"
+                  data-cursor-label="HIRE"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold tracking-wide uppercase text-white bg-brand-red hover:bg-brand-red-dark shadow-sm hover:shadow-glow-red transition-all duration-300 group"
+                >
+                  <span>Request Hiring Support</span>
+                  <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+              </MagneticButton>
             </div>
 
             {/* Mobile Actions: Compact CTA + Clean Hamburger */}
             <div className="flex items-center lg:hidden gap-2.5">
               <Link
                 to="/request-hiring"
-                className="inline-flex items-center justify-center px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-brand-red hover:bg-brand-red-dark transition-all"
+                className="inline-flex items-center justify-center px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-white bg-brand-red hover:bg-brand-red-dark transition-all"
               >
                 Hire Staff
               </Link>
@@ -212,7 +237,7 @@ export default function Navbar({ onOpenHiringModal }) {
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 rounded-lg text-slate-700 hover:text-charcoal hover:bg-slate-100 transition-colors focus:outline-none"
+                className="p-2 rounded-xl text-charcoal hover:bg-slate-100 transition-colors focus:outline-none cursor-pointer"
                 aria-label={mobileMenuOpen ? 'Close Navigation' : 'Open Navigation'}
                 aria-expanded={mobileMenuOpen}
               >
@@ -223,10 +248,13 @@ export default function Navbar({ onOpenHiringModal }) {
           </div>
         </div>
 
-        {/* Clean, Elegant Mobile Drawer */}
+        {/* Clean, Editorial Mobile Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-b border-slate-200 bg-white px-5 pt-4 pb-6 shadow-xl animate-fadeIn text-left">
-            <div className="space-y-1 mb-5">
+          <div
+            ref={mobileDrawerRef}
+            className="lg:hidden border-b border-black/[0.08] bg-white/98 backdrop-blur-2xl px-6 pt-5 pb-8 shadow-2xl text-left"
+          >
+            <div className="space-y-1.5 mb-6">
               {primaryLinks.map((link) => {
                 const isActive = location.pathname === link.path;
                 return (
@@ -234,10 +262,10 @@ export default function Navbar({ onOpenHiringModal }) {
                     key={link.path}
                     to={link.path}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                    className={`mobile-nav-item block px-3 py-2.5 rounded-xl text-sm font-semibold transition-all ${
                       isActive
-                        ? 'text-brand-red bg-brand-red-50/80 font-bold'
-                        : 'text-slate-700 hover:text-brand-red hover:bg-slate-50'
+                        ? 'text-brand-red bg-brand-red-light font-bold'
+                        : 'text-charcoal hover:text-brand-red hover:bg-slate-50'
                     }`}
                   >
                     {link.label}
@@ -245,9 +273,9 @@ export default function Navbar({ onOpenHiringModal }) {
                 );
               })}
 
-              <div className="pt-2 pb-1 border-t border-slate-100">
-                <span className="px-3 text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
-                  More
+              <div className="pt-3 pb-1 border-t border-slate-100">
+                <span className="px-3 text-[10px] font-bold text-charcoal/40 uppercase tracking-widest block mb-2">
+                  More Information
                 </span>
                 {secondaryLinks.map((link) => {
                   const isActive = location.pathname === link.path;
@@ -256,10 +284,10 @@ export default function Navbar({ onOpenHiringModal }) {
                       key={link.path}
                       to={link.path}
                       onClick={() => setMobileMenuOpen(false)}
-                      className={`block px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
+                      className={`mobile-nav-item block px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
                         isActive
-                          ? 'text-brand-red bg-brand-red-50/80 font-bold'
-                          : 'text-slate-600 hover:text-brand-red hover:bg-slate-50'
+                          ? 'text-brand-red bg-brand-red-light font-bold'
+                          : 'text-charcoal/80 hover:text-brand-red hover:bg-slate-50'
                       }`}
                     >
                       {link.label}
@@ -273,7 +301,7 @@ export default function Navbar({ onOpenHiringModal }) {
               <Link
                 to="/request-hiring"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-lg bg-brand-red hover:bg-brand-red-dark text-white font-semibold text-sm shadow-sm transition-all text-center"
+                className="mobile-nav-item w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-brand-red hover:bg-brand-red-dark text-white font-bold text-xs uppercase tracking-wider shadow-sm transition-all text-center"
               >
                 <span>Request Hiring Support</span>
                 <ArrowRight className="w-4 h-4" />

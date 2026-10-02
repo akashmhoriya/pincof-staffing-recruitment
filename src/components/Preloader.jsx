@@ -234,7 +234,7 @@ export default function Preloader({ onLoaded }) {
           <div className="h-6 overflow-hidden flex items-center justify-center">
             <span
               ref={phraseRef}
-              className="text-xs font-black tracking-[0.25em] text-charcoal uppercase block"
+              className="font-display text-xs font-bold tracking-[0.28em] text-charcoal uppercase block"
             >
               {KINETIC_PHRASES[phraseIndex]}
             </span>
