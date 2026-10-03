@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Menu, X, ArrowRight, ChevronDown, Award, HelpCircle, ShieldCheck } from 'lucide-react';
 import logoImg from '../assets/pincof-logo-transparent.png';
@@ -8,6 +8,7 @@ import gsap from 'gsap';
 export default function Navbar({ onOpenHiringModal: _onOpenHiringModal }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [shouldRenderDrawer, setShouldRenderDrawer] = useState(false);
   const [moreDropdownOpen, setMoreDropdownOpen] = useState(false);
   const navRef = useRef(null);
   const dropdownRef = useRef(null);
@@ -34,11 +35,17 @@ export default function Navbar({ onOpenHiringModal: _onOpenHiringModal }) {
     return () => ctx.revert();
   }, []);
 
+  const closeMobileMenuImmediately = () => {
+    setMobileMenuOpen(false);
+    setShouldRenderDrawer(false);
+  };
+
   // Close menus on page navigation
   const [prevPath, setPrevPath] = useState(location.pathname);
   if (prevPath !== location.pathname) {
     setPrevPath(location.pathname);
     setMobileMenuOpen(false);
+    setShouldRenderDrawer(false);
     setMoreDropdownOpen(false);
   }
 
@@ -53,16 +60,67 @@ export default function Navbar({ onOpenHiringModal: _onOpenHiringModal }) {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Animate mobile drawer when opened
+  // Smooth accordion & staggered kinetic slide animation for mobile menu
   useEffect(() => {
-    if (mobileMenuOpen && mobileDrawerRef.current) {
-      gsap.fromTo(
-        mobileDrawerRef.current.querySelectorAll('.mobile-nav-item'),
-        { opacity: 0, y: 15 },
-        { opacity: 1, y: 0, duration: 0.4, stagger: 0.05, ease: 'power2.out' }
+    if (mobileMenuOpen) {
+      setShouldRenderDrawer(true);
+    } else if (shouldRenderDrawer && mobileDrawerRef.current) {
+      const items = mobileDrawerRef.current.querySelectorAll('.mobile-nav-item');
+      gsap.killTweensOf([mobileDrawerRef.current, items]);
+
+      const tl = gsap.timeline({
+        onComplete: () => {
+          setShouldRenderDrawer(false);
+        },
+      });
+
+      tl.to(items, {
+        opacity: 0,
+        x: -12,
+        duration: 0.16,
+        stagger: 0.015,
+        ease: 'power2.in',
+      }).to(
+        mobileDrawerRef.current,
+        {
+          height: 0,
+          opacity: 0,
+          duration: 0.24,
+          ease: 'power3.inOut',
+        },
+        '-=0.08'
       );
     }
   }, [mobileMenuOpen]);
+
+  useLayoutEffect(() => {
+    if (mobileMenuOpen && shouldRenderDrawer && mobileDrawerRef.current) {
+      const items = mobileDrawerRef.current.querySelectorAll('.mobile-nav-item');
+      gsap.killTweensOf([mobileDrawerRef.current, items]);
+
+      // Animate container expanding down
+      gsap.fromTo(
+        mobileDrawerRef.current,
+        { height: 0, opacity: 0 },
+        { height: 'auto', opacity: 1, duration: 0.38, ease: 'power3.out' }
+      );
+
+      // Staggered kinetic slide-in from the left
+      gsap.fromTo(
+        items,
+        { opacity: 0, x: -20, y: 4 },
+        {
+          opacity: 1,
+          x: 0,
+          y: 0,
+          duration: 0.34,
+          stagger: 0.035,
+          ease: 'power2.out',
+          delay: 0.04,
+        }
+      );
+    }
+  }, [shouldRenderDrawer, mobileMenuOpen]);
 
   // Primary visible links (spacious, focused)
   const primaryLinks = [
@@ -241,7 +299,9 @@ export default function Navbar({ onOpenHiringModal: _onOpenHiringModal }) {
                 aria-label={mobileMenuOpen ? 'Close Navigation' : 'Open Navigation'}
                 aria-expanded={mobileMenuOpen}
               >
-                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                <div className={`transition-transform duration-300 ease-out ${mobileMenuOpen ? 'rotate-90 scale-95' : 'rotate-0 scale-100'}`}>
+                  {mobileMenuOpen ? <X className="w-5 h-5 text-brand-red" /> : <Menu className="w-5 h-5" />}
+                </div>
               </button>
             </div>
 
@@ -249,63 +309,65 @@ export default function Navbar({ onOpenHiringModal: _onOpenHiringModal }) {
         </div>
 
         {/* Clean, Editorial Mobile Drawer */}
-        {mobileMenuOpen && (
+        {shouldRenderDrawer && (
           <div
             ref={mobileDrawerRef}
-            className="lg:hidden border-b border-black/[0.08] bg-white/98 backdrop-blur-2xl px-6 pt-5 pb-8 shadow-2xl text-left"
+            className="lg:hidden border-b border-black/[0.08] bg-white/98 backdrop-blur-2xl shadow-2xl text-left overflow-hidden"
           >
-            <div className="space-y-1.5 mb-6">
-              {primaryLinks.map((link) => {
-                const isActive = location.pathname === link.path;
-                return (
-                  <NavLink
-                    key={link.path}
-                    to={link.path}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`mobile-nav-item block px-3 py-2.5 rounded-xl text-sm font-semibold transition-all ${
-                      isActive
-                        ? 'text-brand-red bg-brand-red-light font-bold'
-                        : 'text-charcoal hover:text-brand-red hover:bg-slate-50'
-                    }`}
-                  >
-                    {link.label}
-                  </NavLink>
-                );
-              })}
-
-              <div className="pt-3 pb-1 border-t border-slate-100">
-                <span className="px-3 text-[10px] font-bold text-charcoal/40 uppercase tracking-widest block mb-2">
-                  More Information
-                </span>
-                {secondaryLinks.map((link) => {
+            <div className="px-6 pt-5 pb-8">
+              <div className="space-y-1.5 mb-6">
+                {primaryLinks.map((link) => {
                   const isActive = location.pathname === link.path;
                   return (
                     <NavLink
                       key={link.path}
                       to={link.path}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={`mobile-nav-item block px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
+                      onClick={closeMobileMenuImmediately}
+                      className={`mobile-nav-item block px-3 py-2.5 rounded-xl text-sm font-semibold transition-all ${
                         isActive
                           ? 'text-brand-red bg-brand-red-light font-bold'
-                          : 'text-charcoal/80 hover:text-brand-red hover:bg-slate-50'
+                          : 'text-charcoal hover:text-brand-red hover:bg-slate-50'
                       }`}
                     >
                       {link.label}
                     </NavLink>
                   );
                 })}
-              </div>
-            </div>
 
-            <div className="pt-3 border-t border-slate-100 flex flex-col gap-2.5">
-              <Link
-                to="/request-hiring"
-                onClick={() => setMobileMenuOpen(false)}
-                className="mobile-nav-item w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-brand-red hover:bg-brand-red-dark text-white font-bold text-xs uppercase tracking-wider shadow-sm transition-all text-center"
-              >
-                <span>Request Hiring Support</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+                <div className="pt-3 pb-1 border-t border-slate-100">
+                  <span className="px-3 text-[10px] font-bold text-charcoal/40 uppercase tracking-widest block mb-2">
+                    More Information
+                  </span>
+                  {secondaryLinks.map((link) => {
+                    const isActive = location.pathname === link.path;
+                    return (
+                      <NavLink
+                        key={link.path}
+                        to={link.path}
+                        onClick={closeMobileMenuImmediately}
+                        className={`mobile-nav-item block px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
+                          isActive
+                            ? 'text-brand-red bg-brand-red-light font-bold'
+                            : 'text-charcoal/80 hover:text-brand-red hover:bg-slate-50'
+                        }`}
+                      >
+                        {link.label}
+                      </NavLink>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-slate-100 flex flex-col gap-2.5">
+                <Link
+                  to="/request-hiring"
+                  onClick={closeMobileMenuImmediately}
+                  className="mobile-nav-item w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-brand-red hover:bg-brand-red-dark text-white font-bold text-xs uppercase tracking-wider shadow-sm transition-all text-center"
+                >
+                  <span>Request Hiring Support</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
             </div>
           </div>
         )}
