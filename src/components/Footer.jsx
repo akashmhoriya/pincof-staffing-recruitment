@@ -7,7 +7,11 @@ import MagneticButton from './MagneticButton';
 
 export default function Footer({ onOpenHiringModal: _onOpenHiringModal }) {
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (window.__lenis) {
+      window.__lenis.scrollTo(0, { duration: 1.2 });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   return (

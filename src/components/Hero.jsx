@@ -210,6 +210,17 @@ export default function Hero({ onOpenHiringModal }) {
               <MagneticButton strength={0.15}>
                 <a
                   href="#services"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const target = document.querySelector('#services');
+                    if (target) {
+                      if (window.__lenis) {
+                        window.__lenis.scrollTo(target, { offset: -30, duration: 1.2 });
+                      } else {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    }
+                  }}
                   data-cursor-label="VIEW"
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full text-xs font-bold tracking-wider uppercase text-charcoal hover:text-brand-navy bg-white hover:bg-slate-50 border border-black/[0.08] shadow-subtle transition-all duration-200"
                 >
@@ -325,6 +336,21 @@ export default function Hero({ onOpenHiringModal }) {
         
         <a
           href="#experience-strip"
+          onClick={(e) => {
+            e.preventDefault();
+            const target = document.querySelector('#experience-strip');
+            if (target) {
+              if (window.__lenis) {
+                window.__lenis.scrollTo(target, {
+                  offset: 0,
+                  duration: 1.2,
+                  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                });
+              } else {
+                target.scrollIntoView({ behavior: 'smooth' });
+              }
+            }
+          }}
           className="flex items-center gap-2 hover:text-brand-red transition-colors group cursor-pointer"
         >
           <span>Scroll to explore</span>

@@ -67,10 +67,38 @@ export default function SmoothScroll({ children }) {
       }
     };
 
+    const handleAnchorClick = (e) => {
+      const anchor = e.target.closest('a[href^="#"]');
+      if (!anchor) return;
+
+      const href = anchor.getAttribute('href');
+      if (!href || href === '#' || href === '#!') return;
+
+      try {
+        const target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          if (lenisRef.current) {
+            lenisRef.current.scrollTo(target, {
+              offset: -20,
+              duration: 1.2,
+              easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            });
+          } else {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      } catch {
+        // Fallback for non-standard selector
+      }
+    };
+
+    document.addEventListener('click', handleAnchorClick);
     window.addEventListener('pageshow', handleReset);
     window.addEventListener('beforeunload', handleReset);
 
     return () => {
+      document.removeEventListener('click', handleAnchorClick);
       window.removeEventListener('pageshow', handleReset);
       window.removeEventListener('beforeunload', handleReset);
       gsap.ticker.remove(updateTicker);
