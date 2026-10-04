@@ -8,7 +8,14 @@
       }
       window.scrollTo(0, 0);
     </script>
-    <link rel="icon" type="image/jpeg" href="/pincof-fav.png" />
+    <link rel="canonical" href="https://pincof.com/" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+    <!-- Favicon & Touch Icons -->
+    <link rel="icon" type="image/png" sizes="1024x1024" href="/favicon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    <link rel="shortcut icon" href="/favicon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <!-- Primary Meta Tags -->
@@ -20,8 +27,34 @@
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://pincof.com/" />
+    <meta property="og:site_name" content="PINCOF" />
     <meta property="og:title" content="PINCOF | Staffing & Recruitment Solutions" />
     <meta property="og:description" content="PINCOF provides staffing and recruitment support for retail, franchise, food & beverage, fashion and growing businesses." />
+    <meta property="og:image" content="https://pincof.com/og-image.png" />
+    <meta property="og:image:width" content="1024" />
+    <meta property="og:image:height" content="1024" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://pincof.com/" />
+    <meta name="twitter:title" content="PINCOF | Staffing & Recruitment Solutions" />
+    <meta name="twitter:description" content="PINCOF provides staffing and recruitment support for retail, franchise, food & beverage, fashion and growing businesses." />
+    <meta name="twitter:image" content="https://pincof.com/og-image.png" />
+
+    <!-- Structured Data (JSON-LD) for Google Search -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EmploymentAgency",
+      "name": "PINCOF",
+      "url": "https://pincof.com/",
+      "logo": "https://pincof.com/favicon.png",
+      "image": "https://pincof.com/og-image.png",
+      "description": "PINCOF provides staffing and recruitment support for retail, franchise, food & beverage, fashion and growing businesses.",
+      "sameAs": []
+    }
+    </script>
     
     <!-- Fonts: Syne (Editorial Display) & Plus Jakarta Sans / Inter (Clean Modern Sans) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -32,7 +65,7 @@
     <!-- Immediate Zero-Flash Preloader Screen on Page Reload -->
     <div id="initial-preloader-cover" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:#ffffff;z-index:999999;display:flex;align-items:center;justify-content:center;pointer-events:all;">
       <div style="width:100%;height:100%;background:#ffffff;display:flex;align-items:center;justify-content:center;">
-        <img src="/pincof-fav.png" alt="PINCOF" style="height:44px;width:auto;object-fit:contain;" />
+        <img src="/favicon.png" alt="PINCOF" style="height:44px;width:auto;object-fit:contain;" />
       </div>
     </div>
     <div id="root"></div>
