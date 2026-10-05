@@ -98,11 +98,11 @@ export default function ExperienceStrip({ showHeader = true }) {
           <div className="absolute right-0 top-0 bottom-0 w-24 sm:w-48 bg-gradient-to-l from-[#070A10] to-transparent z-10 pointer-events-none" />
 
           {/* Marquee Track */}
-          <div className="flex w-max animate-marquee group-hover:pause-animation items-center">
+          <div className="flex w-max animate-marquee group-hover:pause-animation items-center will-change-transform">
             {brandList.map((brand, idx) => (
               <div
                 key={`${brand.id}-${idx}`}
-                className="mx-3.5 sm:mx-4 w-72 sm:w-80 p-5 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] hover:border-brand-red/40 transition-all duration-300 flex flex-col justify-between cursor-default group/card backdrop-blur-md shadow-2xl shrink-0"
+                className="mx-3.5 sm:mx-4 w-72 sm:w-80 p-5 rounded-2xl bg-[#0E1422] hover:bg-[#131B2E] border border-white/[0.08] hover:border-brand-red/40 transition-colors duration-300 flex flex-col justify-between cursor-default group/card shadow-xl shrink-0"
               >
                 <div>
                   {/* Top Bar: Crisp Brand Logo & Sector Pill */}

@@ -1,6 +1,9 @@
 import React, { useLayoutEffect, useState, useRef } from 'react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import logoImg from '../assets/pincof-logo.png';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const KINETIC_PHRASES = [
   'SOURCING TALENT',
@@ -46,6 +49,7 @@ export default function Preloader({ onLoaded }) {
             window.__lenis.scrollTo(0, { immediate: true });
           }
           setIsDone(true);
+          ScrollTrigger.refresh();
           if (onLoaded) onLoaded();
         },
       });
@@ -145,6 +149,7 @@ export default function Preloader({ onLoaded }) {
         window.__lenis.scrollTo(0, { immediate: true });
       }
       setIsDone(true);
+      ScrollTrigger.refresh();
       if (onLoaded) onLoaded();
     }, 2400);
 

@@ -41,7 +41,7 @@ export default function Hero({ onOpenHiringModal }) {
       tl.fromTo(
         badgeRef.current,
         { opacity: 0, y: 15 },
-        { opacity: 1, y: 0, duration: 0.6, delay: 0.15 }
+        { opacity: 1, y: 0, duration: 0.6, delay: 0.15, clearProps: 'transform' }
       )
         .to(
           [headlineLine1Ref.current, headlineLine2Ref.current],
@@ -52,19 +52,20 @@ export default function Hero({ onOpenHiringModal }) {
             duration: 0.95,
             stagger: 0.12,
             ease: 'power4.out',
+            clearProps: 'transform',
           },
           '-=0.3'
         )
         .fromTo(
           paragraphRef.current,
           { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.75, ease: 'power3.out' },
+          { opacity: 1, y: 0, duration: 0.75, ease: 'power3.out', clearProps: 'transform' },
           '-=0.5'
         )
         .fromTo(
           ctaGroupRef.current,
           { opacity: 0, y: 15 },
-          { opacity: 1, y: 0, duration: 0.6 },
+          { opacity: 1, y: 0, duration: 0.6, clearProps: 'transform' },
           '-=0.45'
         )
         .fromTo(
@@ -75,19 +76,20 @@ export default function Hero({ onOpenHiringModal }) {
         )
         .fromTo(
           imageContainerRef.current,
-          { clipPath: 'inset(100% 0% 0% 0% round 1.5rem)', opacity: 0 },
+          { clipPath: 'inset(100% 0% 0% 0%)', opacity: 0 },
           {
-            clipPath: 'inset(0% 0% 0% 0% round 1.5rem)',
+            clipPath: 'inset(0% 0% 0% 0%)',
             opacity: 1,
-            duration: 1.1,
+            duration: 1.0,
             ease: 'power3.inOut',
+            clearProps: 'clipPath',
           },
           '-=0.9'
         )
         .fromTo(
           imageInnerRef.current,
-          { scale: 1.2 },
-          { scale: 1, duration: 1.2, ease: 'power2.out' },
+          { scale: 1.15 },
+          { scale: 1, duration: 1.1, ease: 'power2.out' },
           '-=1.0'
         )
         .fromTo(
@@ -99,7 +101,7 @@ export default function Hero({ onOpenHiringModal }) {
         .fromTo(
           statsBadgeRef.current,
           { opacity: 0, y: 15 },
-          { opacity: 1, y: 0, duration: 0.55 },
+          { opacity: 1, y: 0, duration: 0.55, clearProps: 'transform' },
           '-=0.4'
         )
         .fromTo(
@@ -111,23 +113,22 @@ export default function Hero({ onOpenHiringModal }) {
 
       // Subtle breathing motion for floating card
       gsap.to(floatingCardRef.current, {
-        y: '-=10',
-        duration: 4,
+        y: -8,
+        duration: 3.5,
         repeat: -1,
         yoyo: true,
         ease: 'sine.inOut',
       });
 
-      // Parallax on image on scroll
+      // Butter-smooth parallax on image on scroll with damped scrub
       gsap.to(imageInnerRef.current, {
-        yPercent: 12,
-        scale: 1.06,
+        yPercent: 10,
         ease: 'none',
         scrollTrigger: {
           trigger: heroRef.current,
           start: 'top top',
           end: 'bottom top',
-          scrub: true,
+          scrub: 0.8,
         },
       });
     }, heroRef);

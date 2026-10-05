@@ -32,16 +32,18 @@ export default function Home() {
       // Stagger services cards
       gsap.fromTo(
         '.home-service-card',
-        { opacity: 0, y: 35 },
+        { opacity: 0, y: 30 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
-          stagger: 0.1,
+          duration: 0.7,
+          stagger: 0.08,
           ease: 'power3.out',
+          clearProps: 'transform,opacity',
           scrollTrigger: {
             trigger: servicesSectionRef.current,
             start: 'top 80%',
+            once: true,
           },
         }
       );
@@ -49,16 +51,18 @@ export default function Home() {
       // Stagger industry cards
       gsap.fromTo(
         '.home-industry-card',
-        { opacity: 0, y: 35 },
+        { opacity: 0, y: 30 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
-          stagger: 0.1,
+          duration: 0.7,
+          stagger: 0.08,
           ease: 'power3.out',
+          clearProps: 'transform,opacity',
           scrollTrigger: {
             trigger: industriesSectionRef.current,
             start: 'top 80%',
+            once: true,
           },
         }
       );
@@ -70,12 +74,14 @@ export default function Home() {
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
-          stagger: 0.12,
+          duration: 0.7,
+          stagger: 0.1,
           ease: 'power3.out',
+          clearProps: 'transform,opacity',
           scrollTrigger: {
             trigger: whyUsSectionRef.current,
             start: 'top 80%',
+            once: true,
           },
         }
       );
