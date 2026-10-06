@@ -30,7 +30,7 @@ export default function ExperienceStrip({ showHeader = true }) {
           },
         }
       );
-    }, sectionRef);
+    }, sectionRef.current);
 
     return () => ctx.revert();
   }, []);

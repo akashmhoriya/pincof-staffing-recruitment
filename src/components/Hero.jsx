@@ -131,7 +131,7 @@ export default function Hero({ onOpenHiringModal }) {
           scrub: 0.8,
         },
       });
-    }, heroRef);
+    }, heroRef.current);
 
     return () => ctx.revert();
   }, []);

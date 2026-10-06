@@ -139,7 +139,7 @@ export default function Preloader({ onLoaded }) {
           },
           '<'
         );
-    }, containerRef);
+    }, containerRef.current);
 
     // Fallback safety timeout
     const safetyTimer = setTimeout(() => {

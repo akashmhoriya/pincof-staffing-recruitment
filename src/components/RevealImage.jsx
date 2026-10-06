@@ -42,35 +42,36 @@ export default function RevealImage({
         { clipPath: 'inset(100% 0% 0% 0%)' },
         {
           clipPath: 'inset(0% 0% 0% 0%)',
-          duration: 1.1,
+          duration: 1.0,
           ease: 'power3.inOut',
+          clearProps: 'clipPath',
         }
       ).fromTo(
         img,
-        { scale: 1.25, filter: 'grayscale(30%)' },
+        { scale: 1.2, filter: 'grayscale(25%)' },
         {
           scale: 1,
           filter: 'grayscale(0%)',
-          duration: 1.4,
+          duration: 1.2,
           ease: 'power2.out',
         },
-        '-=1.0'
+        '-=0.9'
       );
 
-      // Parallax effect on scroll
+      // Smooth damped parallax effect on scroll
       if (parallax) {
         gsap.to(img, {
-          yPercent: 12,
+          yPercent: 10,
           ease: 'none',
           scrollTrigger: {
             trigger: container,
             start: 'top bottom',
             end: 'bottom top',
-            scrub: true,
+            scrub: 0.8,
           },
         });
       }
-    }, containerRef);
+    }, containerRef.current);
 
     return () => ctx.revert();
   }, [parallax]);
