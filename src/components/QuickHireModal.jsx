@@ -13,6 +13,9 @@ export default function QuickHireModal({ isOpen, onClose, defaultRequirement = '
 
   useEffect(() => {
     if (isOpen) {
+      if (window.__lenis) {
+        window.__lenis.stop();
+      }
       document.body.style.overflow = 'hidden';
       const ctx = gsap.context(() => {
         gsap.fromTo(
@@ -28,6 +31,9 @@ export default function QuickHireModal({ isOpen, onClose, defaultRequirement = '
       });
       return () => {
         document.body.style.overflow = '';
+        if (window.__lenis) {
+          window.__lenis.start();
+        }
         ctx.revert();
       };
     }

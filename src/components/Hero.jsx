@@ -192,20 +192,19 @@ export default function Hero({ onOpenHiringModal }) {
               className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
             >
               <MagneticButton strength={0.25}>
-                <a
-                  href="#hiring-form"
-                  onClick={(e) => {
+                <button
+                  type="button"
+                  onClick={() => {
                     if (onOpenHiringModal) {
-                      e.preventDefault();
                       onOpenHiringModal();
                     }
                   }}
                   data-cursor-label="HIRE"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full text-xs font-bold tracking-wider uppercase text-white bg-brand-red hover:bg-brand-red-dark shadow-premium hover:shadow-glow-red transition-all duration-300 group"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full text-xs font-bold tracking-wider uppercase text-white bg-brand-red hover:bg-brand-red-dark shadow-premium hover:shadow-glow-red transition-all duration-300 group cursor-pointer"
                 >
                   <span>Request Hiring Support</span>
                   <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </a>
+                </button>
               </MagneticButton>
 
               <MagneticButton strength={0.15}>

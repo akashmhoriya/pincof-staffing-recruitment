@@ -68,6 +68,8 @@ export default function SmoothScroll({ children }) {
     };
 
     const handleAnchorClick = (e) => {
+      if (e.defaultPrevented) return;
+
       const anchor = e.target.closest('a[href^="#"]');
       if (!anchor) return;
 
