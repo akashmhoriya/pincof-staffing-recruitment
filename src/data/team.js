@@ -60,7 +60,7 @@ export const coreTeamData = [
   },
   {
     id: 'team-4',
-    name: 'Ananya Singh',
+    name: 'Ananya Kaur',
     role: 'Client Engagement & Onboarding Manager',
     focus: 'Requirement Analysis & Fast Turnaround Support',
     image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80',

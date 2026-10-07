@@ -4,6 +4,7 @@ import CustomSelect from '../components/CustomSelect';
 import MagneticButton from '../components/MagneticButton';
 import { contactData } from '../data/contact';
 import { toast } from '../utils/toast';
+import { getEmailLink, handleEmailClick } from '../utils/email';
 import {
   Headphones,
   Phone,
@@ -102,9 +103,16 @@ export default function ContactPage() {
               <h3 className="font-display text-lg font-bold text-charcoal mb-1">Official Email</h3>
               <p className="text-xs text-charcoal/50 mb-3">Recruitment desk</p>
               <a
-                href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(contactData.email)}&su=${encodeURIComponent('Inquiry regarding Staffing & Recruitment - PINCOF')}`}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={getEmailLink({
+                  email: contactData.email,
+                  subject: 'Inquiry regarding Staffing & Recruitment - PINCOF',
+                })}
+                onClick={(e) =>
+                  handleEmailClick(e, {
+                    email: contactData.email,
+                    subject: 'Inquiry regarding Staffing & Recruitment - PINCOF',
+                  })
+                }
                 data-cursor-label="EMAIL"
                 className="text-xs font-bold text-charcoal hover:text-brand-navy break-all transition-colors block"
               >
@@ -113,10 +121,17 @@ export default function ContactPage() {
             </div>
             <div className="mt-8 pt-4 border-t border-black/[0.05]">
               <a
-                href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(contactData.email)}&su=${encodeURIComponent('Inquiry regarding Staffing & Recruitment - PINCOF')}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs font-bold uppercase tracking-wider text-brand-navy hover:underline inline-flex items-center gap-1"
+                href={getEmailLink({
+                  email: contactData.email,
+                  subject: 'Inquiry regarding Staffing & Recruitment - PINCOF',
+                })}
+                onClick={(e) =>
+                  handleEmailClick(e, {
+                    email: contactData.email,
+                    subject: 'Inquiry regarding Staffing & Recruitment - PINCOF',
+                  })
+                }
+                className="text-xs font-bold uppercase tracking-wider text-brand-navy hover:underline inline-flex items-center gap-1 cursor-pointer"
               >
                 <span>Send Email</span>
                 <ArrowRight className="w-3.5 h-3.5" />

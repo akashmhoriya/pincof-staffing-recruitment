@@ -16,6 +16,7 @@ Production Domain: [https://www.pincof.com/](https://www.pincof.com/)
 * **Styling**: [Tailwind CSS 3](https://tailwindcss.com/) (`tailwindcss` `^3.4.19`, `postcss` `^8.5.28`, `autoprefixer` `^10.6.1`)
 * **Iconography**: [Lucide React](https://lucide.dev/) (`lucide-react` `^1.52.0`)
 * **Notifications**: Zero-dependency custom reactive toast system (`src/utils/toast.js` & `src/components/Toaster.jsx`) for lightweight feedback
+* **Smart Email Routing**: Device-aware email dispatcher (`src/utils/email.js`) launching the native Gmail app directly on mobile and tablet devices, and Gmail Web compose on desktop
 * **Linter**: [Oxlint](https://oxc.rs/) (`oxlint` `^1.86.0`) for high-speed static code verification
 * **Analytics**: [@vercel/analytics](https://vercel.com/analytics) (`^2.0.1`)
 
@@ -89,7 +90,7 @@ The About page (`/about`) features a comprehensive team showcase split into two 
   1. **Naveen Sharma** — *Head of Retail & Fashion Staffing* (Retail Practice) — Store Managers, Supervisors & Cashiers.
   2. **Neha Pasricha** — *Lead - Hospitality & F&B Recruitment* (Hospitality & F&B) — Baristas, Service Crews & Kitchen Teams.
   3. **Vikram Joshi** — *Candidate Screening & Verification Lead* (Vetting & Quality) — Document Verification & Punctuality Screening.
-  4. **Ananya Singh** — *Client Engagement & Onboarding Manager* (Client Success) — Requirement Analysis & Fast Turnaround Support.
+  4. **Ananya Kaur** — *Client Engagement & Onboarding Manager* (Client Success) — Requirement Analysis & Fast Turnaround Support.
   5. **Rohan Gupta** — *Lead - Franchise & Multi-Store Hiring* (Franchise Expansion) — Store Rollouts, Cluster Staffing & Multi-Unit Teams.
   6. **Kavita Nair** — *Talent Lead - Supply Chain & Logistics* (Logistics & Ops) — Inventory Clerks, Store Pickers & Dispatch Teams.
   7. **Parth Jhalani** — *Manager - Corporate & Support Roles* (Corporate Staffing) — Customer Support, Floor Supervisors & Admin Staff.
@@ -138,6 +139,15 @@ Google Search has strict guidelines requiring favicons to be multiples of 48px s
 * **Structured Data**: JSON-LD `EmploymentAgency` schema embedded directly in `index.html`.
 * **Social Sharing**: Open Graph and Twitter Card tags linked to `https://www.pincof.com/og-image.png`.
 * **Zero-Flash Preloader**: Server-rendered inline cover screen preventing white flashes before CSS and JS hydration.
+
+---
+
+## 📱 Device-Aware Smart Email Routing
+
+To ensure a seamless user experience across all devices and prevent unwanted redirection to browser-based web Gmail on phones and tablets:
+* **Desktop (PC / Mac / Linux)**: Clicks on any email address or "Send Email" action dynamically open **Gmail Web Compose** (`https://mail.google.com/mail/?view=cm...`) in a new tab with recipient and subject pre-filled.
+* **Mobile & Tablet (Android / iOS / iPadOS)**: Dynamically detects touch devices and launches the **native Gmail app / default email app** directly via the standard `mailto:` scheme, avoiding mobile Chrome redirection.
+* **Centralized Dispatcher**: Powered by [src/utils/email.js](src/utils/email.js) and integrated across the Footer, Contact Page, About Page, and Lead Forms.
 
 ---
 
@@ -229,6 +239,7 @@ PINCOF-GROUP/
 │   │   └── WhyUsPage.jsx            # /why-us
 │   │
 │   ├── utils/
+│   │   ├── email.js                 # Smart device-aware email dispatcher (native app on mobile, web on desktop)
 │   │   └── toast.js                 # Zero-dependency reactive toast event bus
 │   │
 │   ├── App.jsx                      # App root with Route definitions

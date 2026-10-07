@@ -4,6 +4,7 @@ import logoImg from '../assets/pincof-logo.png';
 import { contactData } from '../data/contact';
 import { ArrowUp, Phone, Mail, MapPin, ArrowRight, CheckCircle2 } from 'lucide-react';
 import MagneticButton from './MagneticButton';
+import { getEmailLink, handleEmailClick } from '../utils/email';
 
 export default function Footer({ onOpenHiringModal: _onOpenHiringModal }) {
   const scrollToTop = () => {
@@ -64,9 +65,16 @@ export default function Footer({ onOpenHiringModal: _onOpenHiringModal }) {
                   <Mail className="w-3.5 h-3.5" />
                 </div>
                 <a
-                  href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(contactData.email)}&su=${encodeURIComponent('Inquiry for PINCOF Recruitment')}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={getEmailLink({
+                    email: contactData.email,
+                    subject: 'Inquiry for PINCOF Recruitment',
+                  })}
+                  onClick={(e) =>
+                    handleEmailClick(e, {
+                      email: contactData.email,
+                      subject: 'Inquiry for PINCOF Recruitment',
+                    })
+                  }
                   className="hover:text-white transition-colors"
                 >
                   {contactData.email}

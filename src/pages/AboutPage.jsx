@@ -6,6 +6,7 @@ import MagneticButton from '../components/MagneticButton';
 import { siteImages } from '../data/images';
 import { directorsData, coreTeamData } from '../data/team';
 import { Shield, ArrowRight, Mail, CheckCircle2, Award } from 'lucide-react';
+import { getEmailLink, handleEmailClick } from '../utils/email';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -330,8 +331,17 @@ export default function AboutPage() {
                   <span className="text-xs text-charcoal/50 font-medium">Direct Touchpoint</span>
                   <div className="flex items-center gap-3">
                     <a
-                      href={`mailto:${director.email}`}
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-charcoal hover:text-brand-red transition-colors px-3 py-1.5 rounded-full bg-slate-50 hover:bg-white border border-black/[0.08] shadow-subtle"
+                      href={getEmailLink({
+                        email: director.email,
+                        subject: `Inquiry for ${director.name} - PINCOF Leadership`,
+                      })}
+                      onClick={(e) =>
+                        handleEmailClick(e, {
+                          email: director.email,
+                          subject: `Inquiry for ${director.name} - PINCOF Leadership`,
+                        })
+                      }
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-charcoal hover:text-brand-red transition-colors px-3 py-1.5 rounded-full bg-slate-50 hover:bg-white border border-black/[0.08] shadow-subtle cursor-pointer"
                     >
                       <Mail className="w-3.5 h-3.5 text-brand-red" />
                       <span className="truncate max-w-[140px] sm:max-w-[170px]">{director.email}</span>

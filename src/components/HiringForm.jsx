@@ -3,6 +3,7 @@ import CustomSelect from './CustomSelect';
 import { contactData } from '../data/contact';
 import { toast } from '../utils/toast';
 import MagneticButton from './MagneticButton';
+import { getEmailLink, handleEmailClick } from '../utils/email';
 import {
   Send,
   Phone,
@@ -115,9 +116,16 @@ export default function HiringForm({ initialRequirement, initialIndustry }) {
                     Recruitment Intake Desk
                   </span>
                   <a
-                    href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(contactData.hiringEmail)}&su=${encodeURIComponent('Hiring Requirement Brief - PINCOF')}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href={getEmailLink({
+                      email: contactData.hiringEmail,
+                      subject: 'Hiring Requirement Brief - PINCOF',
+                    })}
+                    onClick={(e) =>
+                      handleEmailClick(e, {
+                        email: contactData.hiringEmail,
+                        subject: 'Hiring Requirement Brief - PINCOF',
+                      })
+                    }
                     data-cursor-label="EMAIL"
                     className="text-sm font-bold text-charcoal hover:text-brand-red transition-colors block mt-0.5"
                   >
