@@ -15,6 +15,7 @@ Production Domain: [https://www.pincof.com/](https://www.pincof.com/)
 * **Animation Engine**: [GSAP 3](https://greensock.com/gsap/) (`gsap` `^3.15.0`) with `ScrollTrigger`, kinetic line-mask reveals, and GPU-composited tweens
 * **Styling**: [Tailwind CSS 3](https://tailwindcss.com/) (`tailwindcss` `^3.4.19`, `postcss` `^8.5.28`, `autoprefixer` `^10.6.1`)
 * **Iconography**: [Lucide React](https://lucide.dev/) (`lucide-react` `^1.52.0`)
+* **Notifications**: Zero-dependency custom reactive toast system (`src/utils/toast.js` & `src/components/Toaster.jsx`) for lightweight feedback
 * **Linter**: [Oxlint](https://oxc.rs/) (`oxlint` `^1.86.0`) for high-speed static code verification
 * **Analytics**: [@vercel/analytics](https://vercel.com/analytics) (`^2.0.1`)
 
@@ -76,21 +77,24 @@ Every major section lives on its own dedicated route with full SEO meta tags, Op
 
 The About page (`/about`) features a comprehensive team showcase split into two tiers, completely driven by data in `src/data/team.js`:
 
-### 1. Executive Leadership / Directors (`directorsData`)
-* **Executive Leadership Cards**: 2-column responsive layout with portrait imagery, position badges, years of industry leadership, detailed background bios, core domain focus tags, and direct LinkedIn / email touchpoints.
-* **Animated Reveal**: Custom GSAP split kinetic headline reveal with staggered entry animations.
+### 1. Executive Leadership / Board of Directors (`directorsData`)
+* **Executive Leadership Cards**: 2-column responsive layout with commanding portrait imagery (`aspect-[3/4]`, 3.5× to 4.5× larger than team avatars), executive status badges, years of industry leadership, detailed background bios, core domain focus tags, and direct LinkedIn / email touchpoints.
+* **Leadership Members**:
+  * **Nandini Bhargav** — *Founder & Managing Director* (5+ Years Industry Experience) — Strategic Leadership & Enterprise Partnerships.
+  * **Nishant Saini** — *Director of Operations & Delivery* (4+ Years Operations Leadership) — Talent Screening & Fulfillment Infrastructure.
+* **Animated Reveal**: Custom GSAP split kinetic headline reveal with staggered entrance animations.
 
 ### 2. Core Recruitment & Operations Specialists (`coreTeamData`)
 * **8 Practice Specialists**:
-  1. **Aarav Mehta** — *Practice Lead — Retail & Store Operations* (Retail Practice)
-  2. **Priya Sundaram** — *Head of Talent Sourcing — Hospitality & QSR* (Hospitality & F&B)
-  3. **Vikramaditya Rao** — *Lead Vetting & Compliance Assessor* (Vetting & Quality)
-  4. **Sneha Kulkarni** — *Senior Account Manager & Client Success* (Client Success)
-  5. **Rohit Nair** — *Franchise Network Recruitment Specialist* (Franchise Expansion)
-  6. **Ananya Deshmukh** — *Operations & Field Sourcing Lead* (Logistics & Ops)
-  7. **Kabir Sen** — *Specialist — Corporate & Support Roles* (Corporate Staffing)
-  8. **Meera Iyer** — *Candidate Experience & Onboarding Coordinator* (Retention & Care)
-* **Design Features**: 4-column responsive grid (2 rows of 4 cards on desktop), floating category pills, high-resolution optimized portraits, direct mail links, and GPU-accelerated hover effects.
+  1. **Naveen Sharma** — *Head of Retail & Fashion Staffing* (Retail Practice) — Store Managers, Supervisors & Cashiers.
+  2. **Neha Pasricha** — *Lead - Hospitality & F&B Recruitment* (Hospitality & F&B) — Baristas, Service Crews & Kitchen Teams.
+  3. **Vikram Joshi** — *Candidate Screening & Verification Lead* (Vetting & Quality) — Document Verification & Punctuality Screening.
+  4. **Ananya Singh** — *Client Engagement & Onboarding Manager* (Client Success) — Requirement Analysis & Fast Turnaround Support.
+  5. **Rohan Gupta** — *Lead - Franchise & Multi-Store Hiring* (Franchise Expansion) — Store Rollouts, Cluster Staffing & Multi-Unit Teams.
+  6. **Kavita Nair** — *Talent Lead - Supply Chain & Logistics* (Logistics & Ops) — Inventory Clerks, Store Pickers & Dispatch Teams.
+  7. **Parth Jhalani** — *Manager - Corporate & Support Roles* (Corporate Staffing) — Customer Support, Floor Supervisors & Admin Staff.
+  8. **Divya Rathi** — *Talent Retention & Compliance Specialist* (Retention & Care) — Joining Follow-ups, Shift Readiness & Retention Tracking.
+* **Visual Hierarchy & Design Standards**: 4-column responsive grid on desktop with compact, high-density specialist avatars (`w-20 h-20` on mobile, `w-22 h-22` on desktop), floating category pills, verified active lead badges, and GPU-accelerated hover effects. This ensures team cards never overpower the executive directors on mobile or desktop screens.
 
 ---
 

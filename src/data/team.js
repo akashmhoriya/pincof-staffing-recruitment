@@ -1,0 +1,106 @@
+/**
+ * PINCOF Leadership & Core Team Data
+ * Structured for easy updates and editorial presentation
+ */
+
+export const directorsData = [
+  {
+    id: 'director-1',
+    name: 'Nandini Bhargav',
+    role: 'Founder & Managing Director',
+    focus: 'Strategic Leadership & Enterprise Partnerships',
+    bio: 'Oversees PINCOF’s core vision, guiding corporate staffing partnerships across retail chains, franchises, and high-growth consumer brands nationwide.',
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80',
+    experience: '5+ Years Industry Experience',
+    specialties: ['Enterprise Staffing', 'Client Strategy', 'Operational Scale'],
+    email: 'connect@pincof.com',
+    linkedin: 'https://linkedin.com',
+  },
+  {
+    id: 'director-2',
+    name: 'Nishant Saini',
+    role: 'Director of Operations & Delivery',
+    focus: 'Talent Screening & Fulfillment Infrastructure',
+    bio: 'Leads candidate screening protocols, talent acquisition pipelines, and employer SLAs, ensuring partner outlets receive thoroughly vetted, punctual, and reliable staff.',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80',
+    experience: '4+ Years Operations Leadership',
+    specialties: ['Candidate Vetting', 'Rapid Deployment', 'Multi-Store SLAs'],
+    email: 'operations@pincof.com',
+    linkedin: 'https://linkedin.com',
+  },
+];
+
+export const coreTeamData = [
+  {
+    id: 'team-1',
+    name: 'Naveen Sharma',
+    role: 'Head of Retail & Fashion Staffing',
+    focus: 'Store Managers, Supervisors & Cashiers',
+    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80',
+    department: 'Retail Practice',
+    linkedin: 'https://linkedin.com',
+  },
+  {
+    id: 'team-2',
+    name: 'Neha Pasricha',
+    role: 'Lead - Hospitality & F&B Recruitment',
+    focus: 'Baristas, Service Crews & Kitchen Teams',
+    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=800&q=80',
+    department: 'Hospitality & F&B',
+    linkedin: 'https://linkedin.com',
+  },
+  {
+    id: 'team-3',
+    name: 'Vikram Joshi',
+    role: 'Candidate Screening & Verification Lead',
+    focus: 'Document Verification & Punctuality Screening',
+    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=80',
+    department: 'Vetting & Quality',
+    linkedin: 'https://linkedin.com',
+  },
+  {
+    id: 'team-4',
+    name: 'Ananya Singh',
+    role: 'Client Engagement & Onboarding Manager',
+    focus: 'Requirement Analysis & Fast Turnaround Support',
+    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80',
+    department: 'Client Success',
+    linkedin: 'https://linkedin.com',
+  },
+  {
+    id: 'team-5',
+    name: 'Rohan Gupta',
+    role: 'Lead - Franchise & Multi-Store Hiring',
+    focus: 'Store Rollouts, Cluster Staffing & Multi-Unit Teams',
+    image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80',
+    department: 'Franchise Expansion',
+    linkedin: 'https://linkedin.com',
+  },
+  {
+    id: 'team-6',
+    name: 'Kavita Nair',
+    role: 'Talent Lead - Supply Chain & Logistics',
+    focus: 'Inventory Clerks, Store Pickers & Dispatch Teams',
+    image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80',
+    department: 'Logistics & Ops',
+    linkedin: 'https://linkedin.com',
+  },
+  {
+    id: 'team-7',
+    name: 'Parth Jhalani',
+    role: 'Manager - Corporate & Support Roles',
+    focus: 'Customer Support, Floor Supervisors & Admin Staff',
+    image: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=800&q=80',
+    department: 'Corporate Staffing',
+    linkedin: 'https://linkedin.com',
+  },
+  {
+    id: 'team-8',
+    name: 'Divya Rathi',
+    role: 'Talent Retention & Compliance Specialist',
+    focus: 'Joining Follow-ups, Shift Readiness & Retention Tracking',
+    image: 'https://images.unsplash.com/photo-1573496799652-408c2ac9fe98?auto=format&fit=crop&w=800&q=80',
+    department: 'Retention & Care',
+    linkedin: 'https://linkedin.com',
+  },
+];
