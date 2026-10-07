@@ -73,7 +73,7 @@ export const coreTeamData = [
     role: 'Lead - Franchise & Multi-Store Hiring',
     focus: 'Store Rollouts, Cluster Staffing & Multi-Unit Teams',
     image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80',
-    department: 'Franchise Expansion',
+    department: 'Franchise Growth',
     linkedin: 'https://linkedin.com',
   },
   {
