@@ -47,7 +47,7 @@ export default function QuickHireModal({ isOpen, onClose, defaultRequirement = '
     const formEl = event.target;
     const formData = new FormData(formEl);
 
-    formData.append("access_key", "c87985db-7986-4938-9454-cc77dca32382");
+    formData.append("access_key", "605e62d4-f818-45aa-9f84-8d47a36d155f");
     
     const senderName = formData.get("name") || "Employer";
     const senderEmail = formData.get("email");
