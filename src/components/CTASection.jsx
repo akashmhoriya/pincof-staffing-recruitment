@@ -68,8 +68,8 @@ export default function CTASection({ onOpenHiringModal }) {
           </p>
 
           {/* Buttons with Magnetic Precision */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
-            <MagneticButton strength={0.25}>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-md sm:max-w-none mx-auto relative z-10">
+            <MagneticButton strength={0.25} className="block sm:inline-block w-full sm:w-auto">
               <button
                 type="button"
                 onClick={() => {
@@ -78,20 +78,20 @@ export default function CTASection({ onOpenHiringModal }) {
                   }
                 }}
                 data-cursor-label="HIRE"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full text-xs font-bold tracking-wider uppercase text-white bg-brand-red hover:bg-brand-red-dark shadow-glow-red hover:scale-105 transition-all duration-300 group cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full text-xs font-bold tracking-wider uppercase text-white bg-brand-red hover:bg-brand-red-dark shadow-glow-red hover:scale-105 transition-all duration-300 group cursor-pointer text-center"
               >
                 <span>Request Hiring Support</span>
-                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 shrink-0" />
               </button>
             </MagneticButton>
 
-            <MagneticButton strength={0.15}>
+            <MagneticButton strength={0.15} className="block sm:inline-block w-full sm:w-auto">
               <a
                 href={`tel:${contactData.phone}`}
                 data-cursor-label="CALL"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full text-xs font-bold tracking-wider uppercase text-white bg-white/10 hover:bg-white/15 border border-white/15 transition-all duration-200"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full text-xs font-bold tracking-wider uppercase text-white bg-white/10 hover:bg-white/15 border border-white/15 transition-all duration-200 text-center"
               >
-                <PhoneCall className="w-4 h-4 text-brand-red" />
+                <PhoneCall className="w-4 h-4 text-brand-red shrink-0" />
                 <span>Talk to Us ({contactData.phoneDisplay})</span>
               </a>
             </MagneticButton>

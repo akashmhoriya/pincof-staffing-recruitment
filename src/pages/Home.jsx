@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 import Hero from '../components/Hero';
-import ExperienceStrip from '../components/ExperienceStrip';
 import { servicesData } from '../data/services';
 import { industriesData } from '../data/industries';
 import { whyUsData } from '../data/whyUs';
@@ -92,11 +91,8 @@ export default function Home() {
 
   return (
     <div>
-      {/* Hero Section */}
+      {/* Hero Section with Full-Width Brand Carousel */}
       <Hero onOpenHiringModal={onOpenHiringModal} />
-
-      {/* Selected Hiring Experience Marquee */}
-      <ExperienceStrip />
 
       {/* Services Preview Section */}
       <section
@@ -105,8 +101,8 @@ export default function Home() {
         className="py-24 lg:py-32 bg-[#FAFAFA] border-b border-black/[0.06] text-left relative"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
-            <div className="max-w-2xl space-y-3">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6 md:gap-8">
+            <div className="flex-1 min-w-0 max-w-2xl space-y-3">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-black/[0.06] text-brand-red text-[11px] font-bold uppercase tracking-widest shadow-subtle">
                 <Layers className="w-3.5 h-3.5" />
                 <span>CORE SERVICES</span>
@@ -119,14 +115,14 @@ export default function Home() {
               </p>
             </div>
 
-            <MagneticButton strength={0.2}>
+            <MagneticButton strength={0.2} className="block sm:inline-block w-full sm:w-auto shrink-0">
               <Link
                 to="/services"
                 data-cursor-label="ALL"
-                className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full border border-black/[0.08] bg-white hover:bg-slate-50 text-xs font-bold uppercase tracking-wider text-charcoal hover:text-brand-red transition-all shadow-subtle shrink-0 group"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full border border-black/[0.08] bg-white hover:bg-slate-50 text-xs font-bold uppercase tracking-wider text-charcoal hover:text-brand-red transition-all shadow-subtle group text-center whitespace-nowrap shrink-0"
               >
                 <span>Explore All 8 Services</span>
-                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 shrink-0" />
               </Link>
             </MagneticButton>
           </div>
@@ -152,8 +148,8 @@ export default function Home() {
         className="py-24 lg:py-32 bg-white border-b border-black/[0.06] text-left relative"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
-            <div className="max-w-2xl space-y-3">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6 md:gap-8">
+            <div className="flex-1 min-w-0 max-w-2xl space-y-3">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-50 border border-black/[0.06] text-brand-navy text-[11px] font-bold uppercase tracking-widest shadow-subtle">
                 <Building className="w-3.5 h-3.5 text-brand-red" />
                 <span>SECTORS WE SUPPORT</span>
@@ -166,14 +162,14 @@ export default function Home() {
               </p>
             </div>
 
-            <MagneticButton strength={0.2}>
+            <MagneticButton strength={0.2} className="block sm:inline-block w-full sm:w-auto shrink-0">
               <Link
                 to="/industries"
                 data-cursor-label="ALL"
-                className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full border border-black/[0.08] bg-white hover:bg-slate-50 text-xs font-bold uppercase tracking-wider text-charcoal hover:text-brand-navy transition-all shadow-subtle shrink-0 group"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full border border-black/[0.08] bg-white hover:bg-slate-50 text-xs font-bold uppercase tracking-wider text-charcoal hover:text-brand-navy transition-all shadow-subtle group text-center whitespace-nowrap shrink-0"
               >
                 <span>View All Industries</span>
-                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 shrink-0" />
               </Link>
             </MagneticButton>
           </div>

@@ -116,24 +116,24 @@ export default function ServicesPage() {
         </div>
 
         {/* Bottom Page CTA */}
-        <div className="bg-white rounded-3xl border border-black/[0.08] p-8 sm:p-12 shadow-premium flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8 text-left">
+        <div className="bg-white rounded-3xl border border-black/[0.08] p-6 sm:p-10 lg:p-12 shadow-premium flex flex-col lg:flex-row lg:items-center justify-between gap-6 lg:gap-8 text-left">
           <div className="max-w-2xl">
             <h3 className="font-display text-2xl sm:text-3xl font-bold text-charcoal">
               Have a specific staffing requirement?
             </h3>
-            <p className="text-base text-charcoal/70 mt-2 font-normal">
+            <p className="text-sm sm:text-base text-charcoal/70 mt-2 font-normal leading-relaxed">
               Tell us your store location, role requirements, and expected headcount. Our team will review and get back within 24 business hours.
             </p>
           </div>
 
-          <MagneticButton strength={0.2}>
+          <MagneticButton strength={0.2} className="block sm:inline-block w-full sm:w-auto shrink-0 pt-2 lg:pt-0">
             <Link
               to="/request-hiring"
               data-cursor-label="HIRE"
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-brand-red hover:bg-brand-red-dark text-white font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-glow-red transition-all duration-300 shrink-0 group"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-7 py-3.5 sm:py-4 rounded-full bg-brand-red hover:bg-brand-red-dark text-white font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-glow-red transition-all duration-300 group text-center"
             >
               <span>Request Hiring Support</span>
-              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 shrink-0" />
             </Link>
           </MagneticButton>
         </div>

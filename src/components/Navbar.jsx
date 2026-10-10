@@ -60,11 +60,18 @@ export default function Navbar({ onOpenHiringModal: _onOpenHiringModal }) {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  const toggleMobileMenu = () => {
+    if (!mobileMenuOpen) {
+      setShouldRenderDrawer(true);
+      setMobileMenuOpen(true);
+    } else {
+      setMobileMenuOpen(false);
+    }
+  };
+
   // Smooth accordion & staggered kinetic slide animation for mobile menu
   useEffect(() => {
-    if (mobileMenuOpen) {
-      setShouldRenderDrawer(true);
-    } else if (shouldRenderDrawer && mobileDrawerRef.current) {
+    if (!mobileMenuOpen && shouldRenderDrawer && mobileDrawerRef.current) {
       const items = mobileDrawerRef.current.querySelectorAll('.mobile-nav-item');
       gsap.killTweensOf([mobileDrawerRef.current, items]);
 
@@ -91,7 +98,7 @@ export default function Navbar({ onOpenHiringModal: _onOpenHiringModal }) {
         '-=0.08'
       );
     }
-  }, [mobileMenuOpen]);
+  }, [mobileMenuOpen, shouldRenderDrawer]);
 
   useLayoutEffect(() => {
     if (mobileMenuOpen && shouldRenderDrawer && mobileDrawerRef.current) {
@@ -294,7 +301,7 @@ export default function Navbar({ onOpenHiringModal: _onOpenHiringModal }) {
 
               <button
                 type="button"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                onClick={toggleMobileMenu}
                 className="p-2 rounded-xl text-charcoal hover:bg-slate-100 transition-colors focus:outline-none cursor-pointer"
                 aria-label={mobileMenuOpen ? 'Close Navigation' : 'Open Navigation'}
                 aria-expanded={mobileMenuOpen}

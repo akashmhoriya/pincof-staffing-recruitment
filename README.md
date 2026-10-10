@@ -1,6 +1,6 @@
 # PINCOF — Staffing & Recruitment Solutions
 
-A modern, high-performance, fully responsive **React 19 + Vite 8 + Tailwind CSS + GSAP + Lenis + React Router 7** enterprise website for **PINCOF**, engineered with a light, clean, premium corporate editorial aesthetic.
+A modern, high-performance, fully responsive **React 19 + Vite 8 + Tailwind CSS + GSAP + Lenis + React Router 7** enterprise web application for **PINCOF**, engineered with a clean, light, corporate editorial aesthetic.
 
 Production Domain: [https://www.pincof.com/](https://www.pincof.com/)
 
@@ -8,17 +8,17 @@ Production Domain: [https://www.pincof.com/](https://www.pincof.com/)
 
 ## ⚡ Tech Stack & Libraries
 
-* **Core Framework**: [React 19](https://react.dev/) (`react`, `react-dom` `^19.2.8`)
-* **Build Tool & Bundler**: [Vite 8](https://vitejs.dev/) (`vite` `^8.3.2`, `@vitejs/plugin-react` `^6.1.1`)
-* **Routing**: [React Router 7](https://reactrouter.com/) (`react-router-dom` `^7.18.4`) with client-side SPA routing and automatic scroll restoration
-* **Smooth Scrolling**: [Lenis](https://lenis.darkroom.engineering/) (`lenis` `^1.3.26`) synchronized directly with GSAP ticker
-* **Animation Engine**: [GSAP 3](https://greensock.com/gsap/) (`gsap` `^3.15.0`) with `ScrollTrigger`, kinetic line-mask reveals, and GPU-composited tweens
-* **Styling**: [Tailwind CSS 3](https://tailwindcss.com/) (`tailwindcss` `^3.4.19`, `postcss` `^8.5.28`, `autoprefixer` `^10.6.1`)
-* **Iconography**: [Lucide React](https://lucide.dev/) (`lucide-react` `^1.52.0`)
-* **Notifications**: Zero-dependency custom reactive toast system (`src/utils/toast.js` & `src/components/Toaster.jsx`) for lightweight feedback
-* **Smart Email Routing**: Device-aware email dispatcher (`src/utils/email.js`) launching the native Gmail app directly on mobile and tablet devices, and Gmail Web compose on desktop
-* **Linter**: [Oxlint](https://oxc.rs/) (`oxlint` `^1.86.0`) for high-speed static code verification
+* **Core Framework**: [React 19](https://react.dev/) (`react`, `react-dom` `^19.3.0`)
+* **Build Tool & Bundler**: [Vite 8](https://vitejs.dev/) (`vite` `^8.3.4`, `@vitejs/plugin-react` `^6.1.2`)
+* **Routing**: [React Router 7](https://reactrouter.com/) (`react-router-dom` `^7.18.4`) with client-side SPA routing and instant scroll reset
+* **Smooth Scrolling**: [Lenis](https://lenis.darkroom.engineering/) (`lenis` `^1.3.26`) synchronized directly with the GSAP ticker
+* **Animation Engine**: [GSAP 3](https://greensock.com/gsap/) (`gsap` `^3.15.0`) with `ScrollTrigger`, kinetic line-mask reveals, and GPU-composited transforms
+* **Styling**: [Tailwind CSS 3](https://tailwindcss.com/) (`tailwindcss` `^3.4.19`, `postcss` `^8.5.29`, `autoprefixer` `^10.6.1`)
+* **Iconography**: [Lucide React](https://lucide.dev/) (`lucide-react` `^1.54.0`)
+* **Linter**: [Oxlint](https://oxc.rs/) (`oxlint` `^1.87.0`) for ultra-fast, zero-warning static code verification
 * **Analytics**: [@vercel/analytics](https://vercel.com/analytics) (`^2.0.1`)
+* **Notifications**: Zero-dependency reactive toast system (`src/utils/toast.js` & `src/components/Toaster.jsx`)
+* **Smart Email Routing**: Device-aware email dispatcher (`src/utils/email.js`) launching the native email app on mobile/tablet and Gmail Web compose on desktop
 
 ---
 
@@ -37,19 +37,20 @@ npm install
 ```bash
 npm run dev
 ```
-The application will run locally at `http://localhost:5173/`.
+The application runs locally at `http://localhost:5173/`.
 
 ### 4. Code Quality & Linting
 ```bash
 npm run lint
 ```
+Runs high-speed Oxlint verification across all 53 files with 0 errors and 0 warnings.
 
 ### 5. Production Build & Preview
 ```bash
 npm run build
 npm run preview
 ```
-Production output is generated into the `dist/` directory.
+Production output is bundled into the `dist/` directory.
 
 ---
 
@@ -59,13 +60,13 @@ Every major section lives on its own dedicated route with full SEO meta tags, Op
 
 | Route | Page | Key Functionality & Content |
 | :--- | :--- | :--- |
-| `/` | **Home** | Editorial Hero, Selected Hiring Experience Marquee, Core Services Highlights, Industry Focus, Why Choose Us, High-impact CTA banner, and Lead Form. |
+| `/` | **Home** | Editorial Hero, Brand Hero Carousel with storefront photography, Selected Hiring Experience Marquee, Core Services Highlights, Industry Focus, Why Choose Us, High-impact CTA banner, and Lead Form. |
 | `/services` | **Services** | Full 8 recruitment service cards (*Retail, Franchise, F&B, Bulk, Sales, Store & Ops, Management, Customized*) + Delivery methodology breakdown + Direct hiring CTA. |
 | `/industries` | **Industries** | 2×4 responsive grid across 8 industries (*F&B, Fashion, Retail, Grocery, Lifestyle, Franchise, Hospitality, Emerging*) + Sector-specific operational insights. |
 | `/roles` | **Roles We Fill** | Categorized role matrix (*Store Leadership, Front of House, F&B, Operations*) with interactive filters + non-job-portal compliance disclaimer. |
 | `/process` | **Hiring Process** | 4-step progressive timeline (*01 Understand, 02 Source, 03 Screen, 04 Interview & Hire*) + operational standards and client coordination. |
 | `/why-us` | **Why PINCOF** | 5 grounded corporate advantage pillars + transparency pledge (no exaggerated claims or artificial guarantees). |
-| `/experience` | **Selected Experience** | Brand wall cards (*Starbucks, Levi's, Peter England, Allen Solly, NATUF, Other Businesses*) + infinite marquee + prominent compliance disclaimers. |
+| `/experience` | **Selected Experience** | Brand wall cards (*Starbucks, Levi's, Peter England, Allen Solly, NATUF, Multi-Unit Retail*) + infinite marquee + prominent compliance disclaimers. |
 | `/about` | **About PINCOF** | Company mission, recruitment philosophy, **Board of Directors** showcase, and **Core Recruitment Specialists** (8 dedicated practice leads). |
 | `/request-hiring` | **Hiring Intake Form** | Full 2-column recruitment intake lead form with validation, URL pre-fill params, interactive success state, and direct intake desk contact. |
 | `/faq` | **FAQ** | 8 comprehensive accordion questions with category badges and direct inquiry fallback. |
@@ -74,16 +75,46 @@ Every major section lives on its own dedicated route with full SEO meta tags, Op
 
 ---
 
+## 🏪 Brand Hero Showcase & Storefront Photography
+
+The homepage features a custom **Brand Hero Carousel** (`src/components/BrandHeroCarousel.jsx`) showcasing verified retail and hospitality environments:
+
+### 1. Minimalist Slide Design
+* Prominent official brand logo plaque (compact and centered on mobile).
+* Crisp typography displaying the brand name.
+* Single high-impact **"View Details"** action button opening the in-depth modal dossier.
+* Clean visual presentation free from slider arrows or dot bars for an unobstructed photographic view.
+
+### 2. High-Resolution Responsive Architecture
+* Built with semantic HTML5 `<picture>` tags for tailored mobile and desktop viewing.
+* **Mobile-Optimized Assets (`< 640px`)**:
+  * **NATUF**: Dedicated vertical cafe storefront photography (`2048 × 3071`).
+  * **Peter England**: Dedicated vertical Weddings showroom photography (`1548 × 2064`).
+* **Desktop & Tablet Assets (`≥ 640px`)**:
+  * **Starbucks**: Flagship cafe exterior (`2000 × 1333`).
+  * **Levi's**: Flagship retail interior showroom (`2400 × 1603`).
+  * **Peter England**: Wide flagship showroom display (`2400 × 1256`).
+  * **NATUF**: Levantine cafe storefront (`2400 × 1412`).
+  * **Multi-Unit Retail**: Modern architectural supermarket & retail environment (`2560 × 1920`).
+  * **Allen Solly**: Premium lifestyle showroom (`2400 × 1600`).
+
+### 3. Comprehensive Staffing Modal Dossier
+* Detailed mandate title and operational scope of work.
+* Delivered positions and roles.
+* 4-step candidate screening and verification process.
+* Measurable operational highlights (turnaround time, retention rate, compliance verification).
+
+---
+
 ## 👥 Team & Leadership Architecture
 
 The About page (`/about`) features a comprehensive team showcase split into two tiers, completely driven by data in `src/data/team.js`:
 
 ### 1. Executive Leadership / Board of Directors (`directorsData`)
-* **Executive Leadership Cards**: 2-column responsive layout with commanding portrait imagery (`aspect-[3/4]`, 3.5× to 4.5× larger than team avatars), executive status badges, years of industry leadership, detailed background bios, core domain focus tags, and direct LinkedIn / email touchpoints.
+* **Executive Leadership Cards**: 2-column responsive layout with commanding portrait imagery (`aspect-[3/4]`), executive status badges, years of industry leadership, detailed background bios, core domain focus tags, and direct LinkedIn / email touchpoints.
 * **Leadership Members**:
   * **Nandini Bhargav** — *Founder & Managing Director* (5+ Years Industry Experience) — Strategic Leadership & Enterprise Partnerships.
   * **Nishant Saini** — *Director of Operations & Delivery* (4+ Years Operations Leadership) — Talent Screening & Fulfillment Infrastructure.
-* **Animated Reveal**: Custom GSAP split kinetic headline reveal with staggered entrance animations.
 
 ### 2. Core Recruitment & Operations Specialists (`coreTeamData`)
 * **8 Practice Specialists**:
@@ -95,35 +126,33 @@ The About page (`/about`) features a comprehensive team showcase split into two 
   6. **Kavita Nair** — *Talent Lead - Supply Chain & Logistics* (Logistics & Ops) — Inventory Clerks, Store Pickers & Dispatch Teams.
   7. **Parth Jhalani** — *Manager - Corporate & Support Roles* (Corporate Staffing) — Customer Support, Floor Supervisors & Admin Staff.
   8. **Divya Rathi** — *Talent Retention & Compliance Specialist* (Retention & Care) — Joining Follow-ups, Shift Readiness & Retention Tracking.
-* **Visual Hierarchy & Design Standards**: 4-column responsive grid on desktop with compact, high-density specialist avatars (`w-20 h-20` on mobile, `w-22 h-22` on desktop), floating category pills, verified active lead badges, and GPU-accelerated hover effects. This ensures team cards never overpower the executive directors on mobile or desktop screens.
+* **Visual Hierarchy**: 4-column responsive grid on desktop with compact, high-density specialist avatars (`w-20 h-20` on mobile, `w-22 h-22` on desktop), floating category pills, verified active lead badges, and GPU-accelerated hover effects.
 
 ---
 
 ## 🎬 GSAP Animation System & Anti-Jitter Guidelines
 
-To ensure stable 60FPS animations on low-power laptops and high-refresh displays alike, the animation system follows strict performance guidelines:
+To ensure stable 60FPS animations on low-power laptops and high-refresh displays alike:
 
 1. **Lenis + GSAP Synchronization**:
-   * Lenis smooth scrolling runs on `requestAnimationFrame` and notifies GSAP ScrollTrigger via `ScrollTrigger.update()`.
-   * Synchronized in `src/components/SmoothScroll.jsx`.
+   * Lenis smooth scrolling runs on `requestAnimationFrame` and notifies GSAP ScrollTrigger via `ScrollTrigger.update()`. Synchronized in `src/components/SmoothScroll.jsx`.
 2. **Lag Smoothing**:
    * Configured with `gsap.ticker.lagSmoothing(1000, 16)` to prevent abrupt catch-up jumps when switching browser tabs or during heavy initial DOM parsing.
 3. **`clearProps: 'all'` on ScrollTriggers**:
    * GSAP entrance animations clean up inline `transform` and `opacity` styles upon completion (`clearProps: 'all'`).
-   * This ensures that CSS `:hover` states (`hover:-translate-y-1.5`, `hover:shadow-xl`) do not collide with GSAP's inline `matrix3d()` transforms, eliminating hover jitter.
+   * This ensures that CSS `:hover` states (`hover:-translate-y-1.5`, `hover:shadow-xl`) do not collide with GSAP's inline transforms.
 4. **Zero-Jitter Pointer Movements**:
-   * Pointer/mouse hover effects (e.g. magnetic buttons, card tilt) use direct ref manipulations or scoped CSS transforms rather than triggering React state updates (`useState`) on mousemove.
+   * Mouse hover effects (magnetic buttons, card tilt) use direct ref manipulations or scoped CSS transforms rather than triggering React state updates on mousemove.
 5. **Damped Parallax Scrubbing**:
    * Parallax image reveals (`RevealImage.jsx`) use `scrub: 0.8` rather than `scrub: true` to prevent mechanical step-jitter on trackpads and mice.
 6. **Scoped Context Cleanup**:
-   * All GSAP animations are wrapped in `gsap.context()` or cleaned up on component unmount to prevent memory leaks and ghost ScrollTrigger instances across route transitions.
+   * All GSAP animations are wrapped in `gsap.context()` or cleaned up on unmount to prevent memory leaks and ghost ScrollTrigger instances across route transitions.
 
 ---
 
 ## 🔍 SEO, Favicon & Verification Architecture
 
 ### 1. Google Search-Compliant Favicon Hierarchy
-Google Search has strict guidelines requiring favicons to be multiples of 48px square (`48x48`, `96x96`, `192x192`):
 * `/favicon.ico` — Multi-resolution binary ICO icon file placed at the web root.
 * `/favicon-48x48.png` — 48×48px high-density PNG.
 * `/favicon-96x96.png` — 96×96px high-density PNG.
@@ -138,16 +167,15 @@ Google Search has strict guidelines requiring favicons to be multiples of 48px s
 * **Robots**: `public/robots.txt` allowing all legitimate crawlers.
 * **Structured Data**: JSON-LD `EmploymentAgency` schema embedded directly in `index.html`.
 * **Social Sharing**: Open Graph and Twitter Card tags linked to `https://www.pincof.com/og-image.png`.
-* **Zero-Flash Preloader**: Server-rendered inline cover screen preventing white flashes before CSS and JS hydration.
+* **Zero-Flash Preloader**: Inline CSS cover screen preventing white flashes before hydration.
 
 ---
 
 ## 📱 Device-Aware Smart Email Routing
 
-To ensure a seamless user experience across all devices and prevent unwanted redirection to browser-based web Gmail on phones and tablets:
 * **Desktop (PC / Mac / Linux)**: Clicks on any email address or "Send Email" action dynamically open **Gmail Web Compose** (`https://mail.google.com/mail/?view=cm...`) in a new tab with recipient and subject pre-filled.
 * **Mobile & Tablet (Android / iOS / iPadOS)**: Dynamically detects touch devices and launches the **native Gmail app / default email app** directly via the standard `mailto:` scheme, avoiding mobile Chrome redirection.
-* **Centralized Dispatcher**: Powered by [src/utils/email.js](src/utils/email.js) and integrated across the Footer, Contact Page, About Page, and Lead Forms.
+* **Centralized Dispatcher**: Powered by `src/utils/email.js` and integrated across the Footer, Contact Page, About Page, and Lead Forms.
 
 ---
 
@@ -183,11 +211,21 @@ PINCOF-GROUP/
 │   │   │   ├── natuf.svg
 │   │   │   ├── other-enterprises.svg
 │   │   │   ├── peter-england.svg
-│   │   │   └── starbucks.svg
+│   │   │   ├── starbucks.svg
+│   │   │   └── stores/              # High-resolution store photography
+│   │   │       ├── allen-solly-store.jpg
+│   │   │       ├── levis-store.jpg
+│   │   │       ├── multi-unit-store.jpg
+│   │   │       ├── natuf-store.jpg
+│   │   │       ├── natuf-store-mobile.jpg
+│   │   │       ├── peter-england-store.jpg
+│   │   │       ├── peter-england-store-mobile.jpg
+│   │   │       └── starbucks-store.jpg
 │   │   ├── pincof-logo.png          # Main corporate logo (Footer & Preloader)
 │   │   └── pincof-logo-transparent.png # Transparent navbar logo
 │   │
 │   ├── components/
+│   │   ├── BrandHeroCarousel.jsx    # Responsive brand carousel with store photos & modal
 │   │   ├── BrandLogo.jsx            # Official brand logo component with fallback
 │   │   ├── CTASection.jsx           # Reusable high-impact call-to-action banner
 │   │   ├── CustomCursor.jsx         # Custom magnetic follower cursor
@@ -200,7 +238,7 @@ PINCOF-GROUP/
 │   │   ├── IndustryCard.jsx         # Interactive industry sector card
 │   │   ├── Layout.jsx               # Global layout wrapper
 │   │   ├── MagneticButton.jsx       # Physics-based magnetic attraction button
-│   │   ├── Navbar.jsx               # Fixed navigation with mobile drawer & active indicators
+│   │   ├── Navbar.jsx               # Fixed navigation with kinetic mobile drawer
 │   │   ├── PageHeader.jsx           # Reusable breadcrumb editorial header
 │   │   ├── PageTransition.jsx       # Route fade transition wrapper
 │   │   ├── Preloader.jsx            # Interactive brand preloader sequence
@@ -213,7 +251,7 @@ PINCOF-GROUP/
 │   │   └── TopLoadingBar.jsx        # Route change loading progress bar
 │   │
 │   ├── data/
-│   │   ├── brands.js                # Supported brands, roles, and compliance terms
+│   │   ├── brands.js                # Supported brands, store photos, and staffing dossiers
 │   │   ├── contact.js               # Centralized phone, email, WhatsApp, address
 │   │   ├── faq.js                   # FAQ items, answers, and category tags
 │   │   ├── images.js                # Curated high-res editorial photography
@@ -239,7 +277,7 @@ PINCOF-GROUP/
 │   │   └── WhyUsPage.jsx            # /why-us
 │   │
 │   ├── utils/
-│   │   ├── email.js                 # Smart device-aware email dispatcher (native app on mobile, web on desktop)
+│   │   ├── email.js                 # Smart device-aware email dispatcher
 │   │   └── toast.js                 # Zero-dependency reactive toast event bus
 │   │
 │   ├── App.jsx                      # App root with Route definitions
@@ -271,7 +309,7 @@ All website content is cleanly separated from UI components and stored in `src/d
 | **Industry Sectors** | `src/data/industries.js` |
 | **Roles & Categories** | `src/data/roles.js` |
 | **Hiring Process Steps** | `src/data/process.js` |
-| **Supported Brands & Disclaimers** | `src/data/brands.js` |
+| **Supported Brands, Store Photos & Dossiers** | `src/data/brands.js` |
 | **FAQ Questions & Answers** | `src/data/faq.js` |
 | **Corporate Value Pillars** | `src/data/whyUs.js` |
 | **Editorial Photography & Banners** | `src/data/images.js` |
