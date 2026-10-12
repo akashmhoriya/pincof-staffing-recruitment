@@ -19,6 +19,8 @@ export default function BrandHeroCarousel() {
   const modalRef = useRef(null);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
+  const tabsContainerRef = useRef(null);
+  const tabRefs = useRef([]);
 
   const totalBrands = brands.length;
   const activeBrand = brands[currentIndex];
@@ -126,6 +128,48 @@ export default function BrandHeroCarousel() {
 
     return () => ctx.revert();
   }, [currentIndex, direction]);
+
+  // Auto-scroll the brand pills strip so the active/highlighted brand is always smoothly brought into view
+  useEffect(() => {
+    const scrollActiveTabIntoView = (smooth = true) => {
+      const container = tabsContainerRef.current;
+      const activeTab = tabRefs.current[currentIndex];
+      if (!container || !activeTab) return;
+      if (container.scrollWidth <= container.clientWidth) return;
+
+      const containerRect = container.getBoundingClientRect();
+      const tabRect = activeTab.getBoundingClientRect();
+
+      // Tab position relative to the container's visible left boundary
+      const relativeLeft = tabRect.left - containerRect.left;
+
+      // Calculate offset required to center the active tab horizontally within the container
+      const diff = relativeLeft + activeTab.clientWidth / 2 - container.clientWidth / 2;
+      const targetScrollLeft = container.scrollLeft + diff;
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      container.scrollTo({
+        left: Math.max(0, targetScrollLeft),
+        behavior: prefersReducedMotion || !smooth ? 'auto' : 'smooth',
+      });
+    };
+
+    const rafId = requestAnimationFrame(() => {
+      scrollActiveTabIntoView(true);
+    });
+
+    const handleResize = () => {
+      scrollActiveTabIntoView(false);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [currentIndex]);
 
   // Keyboard navigation
   const handleKeyDown = (e) => {
@@ -237,14 +281,39 @@ export default function BrandHeroCarousel() {
           </div>
 
           {/* Quick Jump Brand Pills - Clean, unconstrained scrollable/flex strip */}
-          <div className="flex items-center gap-1.5 overflow-x-auto py-1 scrollbar-none max-w-full w-full lg:w-auto lg:justify-center">
+          <div
+            ref={tabsContainerRef}
+            data-lenis-prevent="true"
+            className="flex items-center gap-1.5 overflow-x-auto py-1.5 scrollbar-none max-w-full w-full lg:w-auto lg:justify-center scroll-smooth"
+            style={{ WebkitOverflowScrolling: 'touch' }}
+          >
             {brands.map((brand, idx) => {
               const isActive = idx === currentIndex;
               return (
                 <button
                   key={brand.id}
+                  ref={(el) => {
+                    tabRefs.current[idx] = el;
+                  }}
                   type="button"
-                  onClick={() => goToSlide(idx, idx > currentIndex ? 1 : -1)}
+                  onClick={() => {
+                    if (idx === currentIndex) {
+                      const container = tabsContainerRef.current;
+                      const activeTab = tabRefs.current[idx];
+                      if (container && activeTab) {
+                        const containerRect = container.getBoundingClientRect();
+                        const tabRect = activeTab.getBoundingClientRect();
+                        const relativeLeft = tabRect.left - containerRect.left;
+                        const diff = relativeLeft + activeTab.clientWidth / 2 - container.clientWidth / 2;
+                        container.scrollTo({
+                          left: Math.max(0, container.scrollLeft + diff),
+                          behavior: 'smooth',
+                        });
+                      }
+                      return;
+                    }
+                    goToSlide(idx, idx > currentIndex ? 1 : -1);
+                  }}
                   className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer shrink-0 whitespace-nowrap ${
                     isActive
                       ? 'bg-charcoal text-white shadow-sm scale-105'
