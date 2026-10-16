@@ -1,6 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { ChevronRight, Home } from 'lucide-react';
 import gsap from 'gsap';
 
 export default function PageHeader({ eyebrow, title, description, badgeIcon: BadgeIcon }) {
@@ -40,17 +38,6 @@ export default function PageHeader({ eyebrow, title, description, badgeIcon: Bad
       <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-brand-navy/[0.04] rounded-full blur-3xl pointer-events-none -z-0" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-xs text-charcoal/50 mb-8" aria-label="Breadcrumb">
-          <Link to="/" className="hover:text-brand-red flex items-center gap-1.5 transition-colors font-medium">
-            <Home className="w-3.5 h-3.5" />
-            <span>Home</span>
-          </Link>
-          <ChevronRight className="w-3.5 h-3.5 text-black/20" />
-          <span className="text-charcoal font-bold tracking-wide">{title}</span>
-        </nav>
-
         <div ref={textRef} className="max-w-4xl will-change-transform space-y-4">
           {eyebrow && (
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-black/[0.06] text-brand-red text-[11px] font-bold uppercase tracking-widest shadow-subtle">
